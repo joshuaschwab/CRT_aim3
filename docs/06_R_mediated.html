@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>6. Hands-on: the multilevel-mediation-missing problem – Cluster Randomized Trials:  Methods for Reach and Impact</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./11_info_conclusion.html" rel="next">
+<link href="./05_R_foundational.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-45431c2918bd31147ddb3fa7038bb99f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script><link rel="stylesheet" href="styles.css">
+</head>
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Cluster Randomized Trials: <br> Methods for Reach and Impact</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="./00_instructors.html"> 
+<span class="menu-text">Team</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="https://github.com/LauraBalzer/TwoStageTMLE" aria-current="page"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">R package</span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title">6. Hands-on: the multilevel-mediation-missing problem</h1>
+        </a>     
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+        <div class="sidebar-tools-collapse">
+    <a href="https://github.com/LauraBalzer/TwoStageTMLE" title="Source code" class="quarto-navigation-tool px-1" aria-label="Source code"><i class="bi bi-github"></i></a>
+</div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_info_why_crts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Why CRTs?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_info_roadmap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. The Causal Roadmap for CRTs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_info_challenges.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. Challenges in CRTs</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Two-Stage TMLE</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_info_two_stage_tmle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. The method</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_R_foundational.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. Hands-on — missing outcomes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_R_mediated.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">6. Hands-on — mediated missingness</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_info_conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. Final remarks</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#generate-one-crt" id="toc-generate-one-crt" class="nav-link active" data-scroll-target="#generate-one-crt">Generate one CRT</a></li>
+  <li><a href="#stage-1-ratio-endpoint-per-cluster" id="toc-stage-1-ratio-endpoint-per-cluster" class="nav-link" data-scroll-target="#stage-1-ratio-endpoint-per-cluster">Stage 1 — ratio endpoint per cluster</a></li>
+  <li><a href="#stage-2-cluster-level-tmle-on-the-ratio-endpoint" id="toc-stage-2-cluster-level-tmle-on-the-ratio-endpoint" class="nav-link" data-scroll-target="#stage-2-cluster-level-tmle-on-the-ratio-endpoint">Stage 2 — cluster-level TMLE on the ratio endpoint</a></li>
+  <li><a href="#end-to-end-driver" id="toc-end-to-end-driver" class="nav-link" data-scroll-target="#end-to-end-driver">End-to-end driver</a></li>
+  <li><a href="#a-note-on-variance" id="toc-a-note-on-variance" class="nav-link" data-scroll-target="#a-note-on-variance">A note on variance</a></li>
+  <li><a href="#where-to-go-next" id="toc-where-to-go-next" class="nav-link" data-scroll-target="#where-to-go-next">Where to go next</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title d-none d-lg-block">6. Hands-on: the multilevel-mediation-missing problem</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">May 22, 2026</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header><p>This chapter walks through the <strong>mediated</strong> Stage 1 estimator <span class="citation" data-cites="nakato2026mediated">(<a href="#ref-nakato2026mediated" role="doc-biblioref">Nakato and Balzer 2026</a>)</span> on a simulated CRT where:</p>
+<ul>
+<li>The intervention <span class="math inline">\(A\)</span> aims to expand both <strong>risk screening</strong> and <strong>uptake of biomedical prevention</strong>.</li>
+<li>The eligibility variable <span class="math inline">\(Y_1^*\)</span> (e.g., true HIV risk status) is observed <em>only when screened</em> (when <span class="math inline">\(M = 1\)</span>).</li>
+<li>The outcome <span class="math inline">\(Y_2\)</span> (e.g., PrEP uptake) is fully observed (e.g., clinical records).</li>
+</ul>
+<p>The cluster-level endpoint is the <strong>ratio</strong>:</p>
+<p><span class="math display">\[
+Y^c \;=\; \frac{\mathbb{P}(Y_2 = 1)}{\mathbb{E}\!\bigl[\mathbb{P}(Y_1 = 1 \mid M = 1, W)\bigr]}.
+\]</span></p>
+<p>Numerator: empirical proportion uptaking. Denominator: TMLE for the prevalence of risk, fit within each cluster.</p>
+<section id="generate-one-crt" class="level2"><h2 class="anchored" data-anchor-id="generate-one-crt">Generate one CRT</h2>
+<p>We use a condensed version of the Nakato (2026) DGP. The intervention boosts screening; outcomes only happen among the screened-and-eligible.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/LauraBalzer/TwoStageTMLE">TwoStageTMLE</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2026</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">gen_cluster</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">N</span>, <span class="va">j</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">UE1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="va">N</span><span class="op">)</span>; <span class="va">UE2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, <span class="va">N</span><span class="op">)</span></span>
+<span>  <span class="va">E1</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">UE1</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="va">N</span><span class="op">)</span>; <span class="va">E2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">UE2</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="va">N</span><span class="op">)</span></span>
+<span>  <span class="va">W1</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">N</span>, <span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>; <span class="va">W2</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">N</span>, <span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>; <span class="va">W3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="va">N</span>, <span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span></span>
+<span>  <span class="va">pY1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="fl">0.5</span> <span class="op">+</span> <span class="va">W1</span> <span class="op">+</span> <span class="va">W2</span> <span class="op">-</span> <span class="va">W3</span> <span class="op">+</span> <span class="fl">0.25</span><span class="op">*</span><span class="va">E1</span> <span class="op">+</span> <span class="fl">0.25</span><span class="op">*</span><span class="va">E2</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html">data.table</a></span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="va">j</span>, E1 <span class="op">=</span> <span class="va">E1</span>, E2 <span class="op">=</span> <span class="va">E2</span>, W1 <span class="op">=</span> <span class="va">W1</span>, W2 <span class="op">=</span> <span class="va">W2</span>, W3 <span class="op">=</span> <span class="va">W3</span>,</span>
+<span>    UE1 <span class="op">=</span> <span class="va">UE1</span>, UE2 <span class="op">=</span> <span class="va">UE2</span>, Y1_star <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">N</span><span class="op">)</span> <span class="op">&lt;</span> <span class="va">pY1</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">J</span> <span class="op">&lt;-</span> <span class="fl">20</span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/rbindlist.html">rbindlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">J</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">j</span><span class="op">)</span> <span class="fu">gen_cluster</span><span class="op">(</span><span class="fl">120</span>, <span class="va">j</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">A_per</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="va">J</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0L</span>, <span class="va">J</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">dat</span><span class="op">[</span>, <span class="va">A</span> <span class="op">:=</span> <span class="va">A_per</span><span class="op">[</span><span class="va">id</span><span class="op">]</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">pM</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span> <span class="op">+</span> <span class="fl">0.6</span><span class="op">*</span><span class="va">dat</span><span class="op">$</span><span class="va">A</span> <span class="op">+</span> <span class="fl">0.5</span><span class="op">*</span><span class="va">dat</span><span class="op">$</span><span class="va">W1</span> <span class="op">+</span> <span class="fl">0.4</span><span class="op">*</span><span class="va">dat</span><span class="op">$</span><span class="va">W2</span> <span class="op">-</span></span>
+<span>              <span class="fl">0.4</span><span class="op">*</span><span class="va">dat</span><span class="op">$</span><span class="va">A</span><span class="op">*</span><span class="va">dat</span><span class="op">$</span><span class="va">W3</span> <span class="op">+</span> <span class="fl">0.4</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">dat</span><span class="op">$</span><span class="va">A</span><span class="op">)</span><span class="op">*</span><span class="va">dat</span><span class="op">$</span><span class="va">W3</span> <span class="op">+</span></span>
+<span>              <span class="fl">0.1</span><span class="op">*</span><span class="va">dat</span><span class="op">$</span><span class="va">UE1</span> <span class="op">+</span> <span class="fl">0.1</span><span class="op">*</span><span class="va">dat</span><span class="op">$</span><span class="va">UE2</span><span class="op">)</span></span>
+<span><span class="va">dat</span><span class="op">[</span>, <span class="va">M</span>  <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">.N</span><span class="op">)</span> <span class="op">&lt;</span> <span class="va">pM</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">dat</span><span class="op">[</span>, <span class="va">Y1</span> <span class="op">:=</span> <span class="va">Y1_star</span> <span class="op">*</span> <span class="va">M</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">pY2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="fl">0.2</span> <span class="op">+</span> <span class="fl">0.1</span><span class="op">*</span><span class="va">dat</span><span class="op">$</span><span class="va">A</span> <span class="op">+</span> <span class="va">dat</span><span class="op">$</span><span class="va">W1</span> <span class="op">+</span> <span class="fl">0.5</span><span class="op">*</span><span class="va">dat</span><span class="op">$</span><span class="va">W2</span> <span class="op">+</span></span>
+<span>              <span class="fl">2</span><span class="op">*</span><span class="va">dat</span><span class="op">$</span><span class="va">W3</span> <span class="op">+</span> <span class="fl">0.2</span><span class="op">*</span><span class="va">dat</span><span class="op">$</span><span class="va">E1</span> <span class="op">+</span> <span class="fl">0.2</span><span class="op">*</span><span class="va">dat</span><span class="op">$</span><span class="va">E2</span><span class="op">)</span></span>
+<span><span class="va">dat</span><span class="op">[</span>, <span class="va">Y2</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">Y1_star</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">M</span> <span class="op">==</span> <span class="fl">1</span>,</span>
+<span>                   <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">.N</span><span class="op">)</span> <span class="op">&lt;</span> <span class="va">pY2</span><span class="op">)</span>,</span>
+<span>                   <span class="fl">0L</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">dat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"UE1"</span>, <span class="st">"UE2"</span>, <span class="st">"Y1_star"</span><span class="op">)</span> <span class="op">:=</span> <span class="cn">NULL</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">dat</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">id</span>, <span class="va">A</span>, <span class="va">W1</span>, <span class="va">W2</span>, <span class="va">W3</span>, <span class="va">E1</span>, <span class="va">E2</span>, <span class="va">M</span>, <span class="va">Y1</span>, <span class="va">Y2</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       id     A          W1          W2    W3         E1        E2     M    Y1</span></span>
+<span><span class="co">#&gt;    &lt;int&gt; &lt;int&gt;       &lt;num&gt;       &lt;num&gt; &lt;int&gt;      &lt;num&gt;     &lt;num&gt; &lt;int&gt; &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1:     1     0 -0.04237439  0.44847287     1 -0.1424984 0.1826801     1     0</span></span>
+<span><span class="co">#&gt; 2:     1     0 -0.33331981 -0.86939636     1 -0.1424984 0.1826801     0     0</span></span>
+<span><span class="co">#&gt; 3:     1     0 -1.25804452  0.23442397     0 -0.1424984 0.1826801     0     0</span></span>
+<span><span class="co">#&gt; 4:     1     0 -0.36757340 -0.27207384     1 -0.1424984 0.1826801     0     0</span></span>
+<span><span class="co">#&gt; 5:     1     0 -0.51006113 -0.08270708     0 -0.1424984 0.1826801     1     1</span></span>
+<span><span class="co">#&gt; 6:     1     0  0.05677722  0.27608328     1 -0.1424984 0.1826801     1     0</span></span>
+<span><span class="co">#&gt;       Y2</span></span>
+<span><span class="co">#&gt;    &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1:     0</span></span>
+<span><span class="co">#&gt; 2:     0</span></span>
+<span><span class="co">#&gt; 3:     0</span></span>
+<span><span class="co">#&gt; 4:     0</span></span>
+<span><span class="co">#&gt; 5:     1</span></span>
+<span><span class="co">#&gt; 6:     0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="stage-1-ratio-endpoint-per-cluster" class="level2"><h2 class="anchored" data-anchor-id="stage-1-ratio-endpoint-per-cluster">Stage 1 — ratio endpoint per cluster</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TwoStageTMLE/man/stage1_mediated.html">stage1_mediated</a></span><span class="op">(</span></span>
+<span>  data       <span class="op">=</span> <span class="va">dat</span>,</span>
+<span>  ind_cov    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"W1"</span>, <span class="st">"W2"</span>, <span class="st">"W3"</span><span class="op">)</span>,</span>
+<span>  clust_cov  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"E1"</span>, <span class="st">"E2"</span><span class="op">)</span>,</span>
+<span>  sl_library <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SL.mean"</span>, <span class="st">"SL.glm"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">s1</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">id</span>, <span class="va">A</span>, <span class="va">E1</span>, <span class="va">E2</span>, <span class="va">screened</span>, <span class="va">eligible</span>, <span class="va">unadj</span>, <span class="va">tmle</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;        id     A           E1          E2  screened  eligible     unadj</span></span>
+<span><span class="co">#&gt;     &lt;int&gt; &lt;int&gt;        &lt;num&gt;       &lt;num&gt;     &lt;num&gt;     &lt;num&gt;     &lt;num&gt;</span></span>
+<span><span class="co">#&gt;  1:     1     0 -0.142498439  0.18268007 0.3333333 0.7037037 0.3342593</span></span>
+<span><span class="co">#&gt;  2:     2     1 -0.267335239 -0.12778233 0.4545455 0.7812500 0.3580729</span></span>
+<span><span class="co">#&gt;  3:     3     0 -0.754100747  0.88039990 0.4800000 0.8000000 0.3333333</span></span>
+<span><span class="co">#&gt;  4:     4     0 -1.127750674  0.69101053 0.3695652 0.7391304 0.2833333</span></span>
+<span><span class="co">#&gt;  5:     5     1 -1.385412095 -0.85150246 0.3584906 0.7307692 0.3227564</span></span>
+<span><span class="co">#&gt;  6:     6     0 -1.398003246  1.76301648 0.4888889 0.8461538 0.3173077</span></span>
+<span><span class="co">#&gt;  7:     7     1 -0.818998847  0.22234323 0.3518519 0.7307692 0.3288462</span></span>
+<span><span class="co">#&gt;  8:     8     0 -0.148256269  1.09219730 0.4444444 0.6857143 0.3085714</span></span>
+<span><span class="co">#&gt;  9:     9     1  0.881473637 -1.38536090 0.3773585 0.7407407 0.3271605</span></span>
+<span><span class="co">#&gt; 10:    10     1  1.139994081 -0.37827222 0.4285714 0.7272727 0.3393939</span></span>
+<span><span class="co">#&gt; 11:    11     1  0.945661899  0.92871441 0.2830189 0.5555556 0.2453704</span></span>
+<span><span class="co">#&gt; 12:    12     1 -0.204717496  0.42156132 0.3906250 0.8064516 0.4301075</span></span>
+<span><span class="co">#&gt; 13:    13     0  0.162131226  0.67509491 0.5762712 0.7727273 0.3799242</span></span>
+<span><span class="co">#&gt; 14:    14     1 -0.998726088  0.78946519 0.3777778 0.6800000 0.2550000</span></span>
+<span><span class="co">#&gt; 15:    15     0  0.469214194 -0.27780578 0.5094340 0.8709677 0.3846774</span></span>
+<span><span class="co">#&gt; 16:    16     0  1.214599835 -0.52245583 0.4285714 0.8076923 0.3298077</span></span>
+<span><span class="co">#&gt; 17:    17     0  0.523969215  0.05977462 0.3859649 0.6875000 0.3265625</span></span>
+<span><span class="co">#&gt; 18:    18     1 -0.760902968  0.21461463 0.4426230 0.8709677 0.4427419</span></span>
+<span><span class="co">#&gt; 19:    19     1 -0.001048779 -0.04094535 0.5000000 0.7500000 0.3750000</span></span>
+<span><span class="co">#&gt; 20:    20     0  1.183757610 -0.26481446 0.4561404 0.7878788 0.3742424</span></span>
+<span><span class="co">#&gt;        id     A           E1          E2  screened  eligible     unadj</span></span>
+<span><span class="co">#&gt;     &lt;int&gt; &lt;int&gt;        &lt;num&gt;       &lt;num&gt;     &lt;num&gt;     &lt;num&gt;     &lt;num&gt;</span></span>
+<span><span class="co">#&gt;          tmle</span></span>
+<span><span class="co">#&gt;         &lt;num&gt;</span></span>
+<span><span class="co">#&gt;  1: 0.3466273</span></span>
+<span><span class="co">#&gt;  2: 0.3831273</span></span>
+<span><span class="co">#&gt;  3: 0.3533307</span></span>
+<span><span class="co">#&gt;  4: 0.2999769</span></span>
+<span><span class="co">#&gt;  5: 0.3436668</span></span>
+<span><span class="co">#&gt;  6: 0.3235683</span></span>
+<span><span class="co">#&gt;  7: 0.3464452</span></span>
+<span><span class="co">#&gt;  8: 0.3229810</span></span>
+<span><span class="co">#&gt;  9: 0.3295142</span></span>
+<span><span class="co">#&gt; 10: 0.3672801</span></span>
+<span><span class="co">#&gt; 11: 0.2470317</span></span>
+<span><span class="co">#&gt; 12: 0.4442699</span></span>
+<span><span class="co">#&gt; 13: 0.3892774</span></span>
+<span><span class="co">#&gt; 14: 0.2570094</span></span>
+<span><span class="co">#&gt; 15: 0.4089595</span></span>
+<span><span class="co">#&gt; 16: 0.3309423</span></span>
+<span><span class="co">#&gt; 17: 0.3562983</span></span>
+<span><span class="co">#&gt; 18: 0.4427419</span></span>
+<span><span class="co">#&gt; 19: 0.4018573</span></span>
+<span><span class="co">#&gt; 20: 0.3542454</span></span>
+<span><span class="co">#&gt;          tmle</span></span>
+<span><span class="co">#&gt;         &lt;num&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Each row is one cluster. The four candidate endpoints:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 54%">
+<col style="width: 28%">
+</colgroup>
+<thead><tr class="header">
+<th>Column</th>
+<th>Estimand</th>
+<th>Bias</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>screened</code></td>
+<td><span class="math inline">\(\mathbb{P}(Y_2 \mid M = 1)\)</span></td>
+<td>Biased (conditions on a post-treatment mediator)</td>
+</tr>
+<tr class="even">
+<td><code>eligible</code></td>
+<td><span class="math inline">\(\mathbb{P}(Y_2 \mid Y_1 = 1)\)</span></td>
+<td>Biased (conditions on observed-eligible)</td>
+</tr>
+<tr class="odd">
+<td><code>unadj</code></td>
+<td><span class="math inline">\(\mathbb{P}(Y_2) / \mathbb{P}(Y_1 \mid M = 1)\)</span></td>
+<td>Unadjusted denominator</td>
+</tr>
+<tr class="even">
+<td><strong><code>tmle</code></strong></td>
+<td><span class="math inline">\(\mathbb{P}(Y_2) / \mathrm{TMLE}[\mathbb{P}(Y_1 \mid M = 1, W)]\)</span></td>
+<td><strong>Recommended endpoint</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The first two exist so you can see how conditioning the wrong way shifts the estimate; <code>tmle</code> is what gets fed to Stage 2.</p>
+</section><section id="stage-2-cluster-level-tmle-on-the-ratio-endpoint" class="level2"><h2 class="anchored" data-anchor-id="stage-2-cluster-level-tmle-on-the-ratio-endpoint">Stage 2 — cluster-level TMLE on the ratio endpoint</h2>
+<p>Stage 2 is <em>unchanged</em> from <a href="./05_R_foundational.html">Chapter 5</a> — the ratio endpoint slots into the same machinery:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/copy.html">copy</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span></span>
+<span><span class="va">s2</span><span class="op">[</span>, <span class="va">Y</span> <span class="op">:=</span> <span class="va">tmle</span><span class="op">]</span></span>
+<span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TwoStageTMLE/man/add_weights.html">add_weights</a></span><span class="op">(</span><span class="va">s2</span>, target <span class="op">=</span> <span class="st">"clust"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">cand</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TwoStageTMLE/man/cand_adj.html">cand_adj</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"E1"</span>, <span class="st">"E2"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">est</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TwoStageTMLE/man/stage2_tmle.html">stage2_tmle</a></span><span class="op">(</span></span>
+<span>  data          <span class="op">=</span> <span class="va">s2</span>,</span>
+<span>  goal          <span class="op">=</span> <span class="st">"RD"</span>,</span>
+<span>  target        <span class="op">=</span> <span class="st">"clust"</span>,</span>
+<span>  break_match   <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  do_data_adapt <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  cand_q_adj    <span class="op">=</span> <span class="va">cand</span><span class="op">$</span><span class="va">cand_q_adj</span>, cand_q_form <span class="op">=</span> <span class="va">cand</span><span class="op">$</span><span class="va">cand_q_form</span>,</span>
+<span>  cand_g_adj    <span class="op">=</span> <span class="va">cand</span><span class="op">$</span><span class="va">cand_g_adj</span>, cand_g_form <span class="op">=</span> <span class="va">cand</span><span class="op">$</span><span class="va">cand_g_form</span>,</span>
+<span>  remove_pscore <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">est</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">est</span>, <span class="va">ci_lo</span>, <span class="va">ci_hi</span>, <span class="va">se</span>, <span class="va">pval</span>, <span class="va">q_adj</span>, <span class="va">g_adj</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;            est       ci_lo      ci_hi         se      pval q_adj g_adj</span></span>
+<span><span class="co">#&gt;          &lt;num&gt;       &lt;num&gt;      &lt;num&gt;      &lt;num&gt;     &lt;num&gt; &lt;int&gt; &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1: 0.007673666 -0.04065632 0.05600365 0.02300418 0.7425532     1   -99</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="end-to-end-driver" class="level2"><h2 class="anchored" data-anchor-id="end-to-end-driver">End-to-end driver</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TwoStageTMLE/man/two_stage_tmle_mediated.html">two_stage_tmle_mediated</a></span><span class="op">(</span></span>
+<span>  data          <span class="op">=</span> <span class="va">dat</span>,</span>
+<span>  ind_cov       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"W1"</span>, <span class="st">"W2"</span>, <span class="st">"W3"</span><span class="op">)</span>,</span>
+<span>  clust_cov     <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"E1"</span>, <span class="st">"E2"</span><span class="op">)</span>,</span>
+<span>  sl_library    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SL.mean"</span>, <span class="st">"SL.glm"</span><span class="op">)</span>,</span>
+<span>  goal          <span class="op">=</span> <span class="st">"RD"</span>, target <span class="op">=</span> <span class="st">"clust"</span>, break_match <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  do_data_adapt <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  cand_q_adj    <span class="op">=</span> <span class="va">cand</span><span class="op">$</span><span class="va">cand_q_adj</span>, cand_q_form <span class="op">=</span> <span class="va">cand</span><span class="op">$</span><span class="va">cand_q_form</span>,</span>
+<span>  cand_g_adj    <span class="op">=</span> <span class="va">cand</span><span class="op">$</span><span class="va">cand_g_adj</span>, cand_g_form <span class="op">=</span> <span class="va">cand</span><span class="op">$</span><span class="va">cand_g_form</span>,</span>
+<span>  remove_pscore <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">out</span><span class="op">$</span><span class="va">est</span>        <span class="co"># Stage 2 estimate</span></span>
+<span><span class="va">out</span><span class="op">$</span><span class="va">stage1</span>     <span class="co"># cluster table with all four candidate endpoints</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="a-note-on-variance" class="level2"><h2 class="anchored" data-anchor-id="a-note-on-variance">A note on variance</h2>
+<p>Stage 2 computes its variance from the cluster-level influence curve and treats the Stage 1 ratio as a <em>fixed observation at the cluster level</em>. The Stage-1 contribution to variance is asymptotically negligible when within-cluster sample sizes are large. Nakato (2026) verifies acceptable coverage at <span class="math inline">\(N_c \approx 200\)</span> per cluster, <span class="math inline">\(J \in \{20, 30, 50, 70\}\)</span>.</p>
+<p>For inference also robust to the Adaptive Pre-specification selection, pass <code>do_cv_variance = TRUE</code> to <code><a href="https://rdrr.io/pkg/TwoStageTMLE/man/stage2_tmle.html">stage2_tmle()</a></code> — the returned data.table gets additional <code>cv_*</code> columns with the CV CI and p-value.</p>
+</section><section id="where-to-go-next" class="level2"><h2 class="anchored" data-anchor-id="where-to-go-next">Where to go next</h2>
+<ul>
+<li>The package vignette <code>vignette("mediated-missing")</code> covers the same flow with additional commentary.</li>
+<li>
+<a href="./11_info_conclusion.html">Chapter 7</a> closes with the next steps — Aim 1B (effect heterogeneity), Aim 2 (SAPPHIRE &amp; Peer-led DCP secondary analyses), and the Roadmap Shiny app.</li>
+</ul></section><section id="resources" class="level2"><h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Reference cards</strong></p>
+<ul>
+<li>
+<code><a href="https://rdrr.io/pkg/TwoStageTMLE/man/stage1_mediated.html">stage1_mediated()</a></code> documentation: <code><a href="https://rdrr.io/pkg/TwoStageTMLE/man/stage1_mediated.html">?TwoStageTMLE::stage1_mediated</a></code>
+</li>
+<li>
+<code><a href="https://rdrr.io/pkg/TwoStageTMLE/man/two_stage_tmle_mediated.html">two_stage_tmle_mediated()</a></code> documentation: <code><a href="https://rdrr.io/pkg/TwoStageTMLE/man/two_stage_tmle_mediated.html">?TwoStageTMLE::two_stage_tmle_mediated</a></code>
+</li>
+<li>Nakato &amp; Balzer (2026) — manuscript <span class="citation" data-cites="nakato2026mediated">(<a href="#ref-nakato2026mediated" role="doc-biblioref">Nakato and Balzer 2026</a>)</span>.</li>
+</ul>
+</div>
+</div>
+
+
+<!-- -->
+
+
+</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-nakato2026mediated" class="csl-entry" role="listitem">
+Nakato, Joy, and Laura B Balzer. 2026. <span>“Methods for Evaluating Overall Effectiveness of Cluster-Level Strategies Aiming to Improve Reach and Health Outcomes.”</span> Unpublished manuscript.
+</div>
+</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./05_R_foundational.html" class="pagination-link" aria-label="5. Hands-on — missing outcomes">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">5. Hands-on — missing outcomes</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./11_info_conclusion.html" class="pagination-link" aria-label="7. Final remarks">
+        <span class="nav-page-text">7. Final remarks</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "6. Hands-on: the multilevel-mediation-missing problem"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="an">date-modified:</span><span class="co"> last-modified</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">  message: false</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include = FALSE}</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>have_pkg <span class="ot">&lt;-</span> <span class="fu">requireNamespace</span>(<span class="st">"TwoStageTMLE"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">eval =</span> have_pkg, <span class="at">collapse =</span> <span class="cn">TRUE</span>, <span class="at">comment =</span> <span class="st">"#&gt;"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="in">```{r install-msg, eval = !have_pkg, echo = FALSE, results = "asis"}</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"::: {.callout-warning}</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The `TwoStageTMLE` package is not installed; code below is shown but not run. "</span>,</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"See the [README](README.md) for installation steps.</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">":::</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>This chapter walks through the **mediated** Stage 1 estimator</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">@nakato2026mediated</span><span class="co">]</span> on a simulated CRT where:</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The intervention $A$ aims to expand both **risk screening** and **uptake</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  of biomedical prevention**.</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The eligibility variable $Y_1^*$ (e.g., true HIV risk status) is</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  observed *only when screened* (when $M = 1$).</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The outcome $Y_2$ (e.g., PrEP uptake) is fully observed (e.g., clinical</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  records).</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>The cluster-level endpoint is the **ratio**:</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>Y^c \;=\; \frac{\mathbb{P}(Y_2 = 1)}{\mathbb{E}<span class="sc">\!</span>\bigl<span class="co">[</span><span class="ot">\mathbb{P}(Y_1 = 1 \mid M = 1, W)\bigr</span><span class="co">]</span>}.</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>Numerator: empirical proportion uptaking. Denominator: TMLE for the</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>prevalence of risk, fit within each cluster.</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## Generate one CRT</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>We use a condensed version of the Nakato (2026) DGP. The intervention</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>boosts screening; outcomes only happen among the screened-and-eligible.</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{r dgp}</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TwoStageTMLE)</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>gen_cluster <span class="ot">&lt;-</span> <span class="cf">function</span>(N, j) {</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>  UE1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">runif</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), N); UE2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">runif</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), N)</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>  E1  <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(<span class="dv">1</span>, UE1[<span class="dv">1</span>], <span class="fl">0.5</span>), N); E2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(<span class="dv">1</span>, UE2[<span class="dv">1</span>], <span class="fl">0.5</span>), N)</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>  W1  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N, <span class="dv">0</span>, <span class="fl">0.5</span>); W2  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N, <span class="dv">0</span>, <span class="fl">0.5</span>); W3 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(N, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>  pY1 <span class="ot">&lt;-</span> <span class="fu">plogis</span>(<span class="fl">0.5</span> <span class="sc">+</span> W1 <span class="sc">+</span> W2 <span class="sc">-</span> W3 <span class="sc">+</span> <span class="fl">0.25</span><span class="sc">*</span>E1 <span class="sc">+</span> <span class="fl">0.25</span><span class="sc">*</span>E2)</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.table</span>(</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> j, <span class="at">E1 =</span> E1, <span class="at">E2 =</span> E2, <span class="at">W1 =</span> W1, <span class="at">W2 =</span> W2, <span class="at">W3 =</span> W3,</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">UE1 =</span> UE1, <span class="at">UE2 =</span> UE2, <span class="at">Y1_star =</span> <span class="fu">as.integer</span>(<span class="fu">runif</span>(N) <span class="sc">&lt;</span> pY1)</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>J <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">rbindlist</span>(<span class="fu">lapply</span>(<span class="fu">seq_len</span>(J), <span class="cf">function</span>(j) <span class="fu">gen_cluster</span>(<span class="dv">120</span>, j)))</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>A_per <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>L, J<span class="sc">/</span><span class="dv">2</span>), <span class="fu">rep</span>(<span class="dv">0</span>L, J<span class="sc">/</span><span class="dv">2</span>)))</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>dat[, A <span class="sc">:</span><span class="er">=</span> A_per[id]]</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>pM <span class="ot">&lt;-</span> <span class="fu">plogis</span>(<span class="sc">-</span><span class="fl">0.5</span> <span class="sc">+</span> <span class="fl">0.6</span><span class="sc">*</span>dat<span class="sc">$</span>A <span class="sc">+</span> <span class="fl">0.5</span><span class="sc">*</span>dat<span class="sc">$</span>W1 <span class="sc">+</span> <span class="fl">0.4</span><span class="sc">*</span>dat<span class="sc">$</span>W2 <span class="sc">-</span></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>              <span class="fl">0.4</span><span class="sc">*</span>dat<span class="sc">$</span>A<span class="sc">*</span>dat<span class="sc">$</span>W3 <span class="sc">+</span> <span class="fl">0.4</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>dat<span class="sc">$</span>A)<span class="sc">*</span>dat<span class="sc">$</span>W3 <span class="sc">+</span></span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>              <span class="fl">0.1</span><span class="sc">*</span>dat<span class="sc">$</span>UE1 <span class="sc">+</span> <span class="fl">0.1</span><span class="sc">*</span>dat<span class="sc">$</span>UE2)</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>dat[, M  <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(<span class="fu">runif</span>(.N) <span class="sc">&lt;</span> pM)]</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>dat[, Y1 <span class="sc">:</span><span class="er">=</span> Y1_star <span class="sc">*</span> M]</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>pY2 <span class="ot">&lt;-</span> <span class="fu">plogis</span>(<span class="fl">0.2</span> <span class="sc">+</span> <span class="fl">0.1</span><span class="sc">*</span>dat<span class="sc">$</span>A <span class="sc">+</span> dat<span class="sc">$</span>W1 <span class="sc">+</span> <span class="fl">0.5</span><span class="sc">*</span>dat<span class="sc">$</span>W2 <span class="sc">+</span></span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>              <span class="dv">2</span><span class="sc">*</span>dat<span class="sc">$</span>W3 <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>dat<span class="sc">$</span>E1 <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>dat<span class="sc">$</span>E2)</span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>dat[, Y2 <span class="sc">:</span><span class="er">=</span> <span class="fu">ifelse</span>(Y1_star <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> M <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">as.integer</span>(<span class="fu">runif</span>(.N) <span class="sc">&lt;</span> pY2),</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>                   <span class="dv">0</span>L)]</span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>dat[, <span class="fu">c</span>(<span class="st">"UE1"</span>, <span class="st">"UE2"</span>, <span class="st">"Y1_star"</span>) <span class="sc">:</span><span class="er">=</span> <span class="cn">NULL</span>]</span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat[, .(id, A, W1, W2, W3, E1, E2, M, Y1, Y2)])</span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stage 1 — ratio endpoint per cluster</span></span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a><span class="in">```{r stage1}</span></span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">stage1_mediated</span>(</span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>  <span class="at">data       =</span> dat,</span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>  <span class="at">ind_cov    =</span> <span class="fu">c</span>(<span class="st">"W1"</span>, <span class="st">"W2"</span>, <span class="st">"W3"</span>),</span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>  <span class="at">clust_cov  =</span> <span class="fu">c</span>(<span class="st">"E1"</span>, <span class="st">"E2"</span>),</span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>  <span class="at">sl_library =</span> <span class="fu">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glm"</span>)</span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>s1[, .(id, A, E1, E2, screened, eligible, unadj, tmle)]</span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>Each row is one cluster. The four candidate endpoints:</span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Column     <span class="pp">|</span> Estimand                              <span class="pp">|</span> Bias               <span class="pp">|</span></span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a><span class="pp">|------------|---------------------------------------|--------------------|</span></span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`screened`</span> <span class="pp">|</span> $\mathbb{P}(Y_2 \mid M = 1)$                  <span class="pp">|</span> Biased (conditions on a post-treatment mediator) <span class="pp">|</span></span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`eligible`</span> <span class="pp">|</span> $\mathbb{P}(Y_2 \mid Y_1 = 1)$                <span class="pp">|</span> Biased (conditions on observed-eligible) <span class="pp">|</span></span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`unadj`</span>    <span class="pp">|</span> $\mathbb{P}(Y_2) / \mathbb{P}(Y_1 \mid M = 1)$        <span class="pp">|</span> Unadjusted denominator <span class="pp">|</span></span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **`tmle`** | $\mathbb{P}(Y_2) / \mathrm{TMLE}[\mathbb{P}(Y_1 \mid M = 1, W)]$ | **Recommended endpoint** <span class="pp">|</span></span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>The first two exist so you can see how conditioning the wrong way shifts</span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>the estimate; <span class="in">`tmle`</span> is what gets fed to Stage 2.</span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stage 2 — cluster-level TMLE on the ratio endpoint</span></span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>Stage 2 is *unchanged* from <span class="co">[</span><span class="ot">Chapter 5</span><span class="co">](05_R_foundational.qmd)</span> — the</span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>ratio endpoint slots into the same machinery:</span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a><span class="in">```{r stage2}</span></span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">copy</span>(s1)</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>s2[, Y <span class="sc">:</span><span class="er">=</span> tmle]</span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">add_weights</span>(s2, <span class="at">target =</span> <span class="st">"clust"</span>)</span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>cand <span class="ot">&lt;-</span> <span class="fu">cand_adj</span>(<span class="fu">c</span>(<span class="st">"E1"</span>, <span class="st">"E2"</span>))</span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">stage2_tmle</span>(</span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>  <span class="at">data          =</span> s2,</span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>  <span class="at">goal          =</span> <span class="st">"RD"</span>,</span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>  <span class="at">target        =</span> <span class="st">"clust"</span>,</span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>  <span class="at">break_match   =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>  <span class="at">do_data_adapt =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_q_adj    =</span> cand<span class="sc">$</span>cand_q_adj, <span class="at">cand_q_form =</span> cand<span class="sc">$</span>cand_q_form,</span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_g_adj    =</span> cand<span class="sc">$</span>cand_g_adj, <span class="at">cand_g_form =</span> cand<span class="sc">$</span>cand_g_form,</span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_pscore =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>est[, .(est, ci_lo, ci_hi, se, pval, q_adj, g_adj)]</span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a><span class="fu">## End-to-end driver</span></span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a><span class="in">```{r e2e, eval = FALSE}</span></span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">two_stage_tmle_mediated</span>(</span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>  <span class="at">data          =</span> dat,</span>
+<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a>  <span class="at">ind_cov       =</span> <span class="fu">c</span>(<span class="st">"W1"</span>, <span class="st">"W2"</span>, <span class="st">"W3"</span>),</span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>  <span class="at">clust_cov     =</span> <span class="fu">c</span>(<span class="st">"E1"</span>, <span class="st">"E2"</span>),</span>
+<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>  <span class="at">sl_library    =</span> <span class="fu">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glm"</span>),</span>
+<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a>  <span class="at">goal          =</span> <span class="st">"RD"</span>, <span class="at">target =</span> <span class="st">"clust"</span>, <span class="at">break_match =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>  <span class="at">do_data_adapt =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_q_adj    =</span> cand<span class="sc">$</span>cand_q_adj, <span class="at">cand_q_form =</span> cand<span class="sc">$</span>cand_q_form,</span>
+<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_g_adj    =</span> cand<span class="sc">$</span>cand_g_adj, <span class="at">cand_g_form =</span> cand<span class="sc">$</span>cand_g_form,</span>
+<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_pscore =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>est        <span class="co"># Stage 2 estimate</span></span>
+<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>stage1     <span class="co"># cluster table with all four candidate endpoints</span></span>
+<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a><span class="fu">## A note on variance</span></span>
+<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a>Stage 2 computes its variance from the cluster-level influence curve and</span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a>treats the Stage 1 ratio as a *fixed observation at the cluster level*.</span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a>The Stage-1 contribution to variance is asymptotically negligible when</span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a>within-cluster sample sizes are large. Nakato (2026) verifies acceptable</span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a>coverage at $N_c \approx 200$ per cluster, $J \in <span class="sc">\{</span>20, 30, 50, 70<span class="sc">\}</span>$.</span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a>For inference also robust to the Adaptive Pre-specification selection,</span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a>pass <span class="in">`do_cv_variance = TRUE`</span> to <span class="in">`stage2_tmle()`</span> — the returned data.table</span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a>gets additional <span class="in">`cv_*`</span> columns with the CV CI and p-value.</span>
+<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a><span class="fu">## Where to go next</span></span>
+<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The package vignette <span class="in">`vignette("mediated-missing")`</span> covers the same</span>
+<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a>  flow with additional commentary.</span>
+<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Chapter 7</span><span class="co">](11_info_conclusion.qmd)</span> closes with the next steps — Aim</span>
+<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a>  1B (effect heterogeneity), Aim 2 (SAPPHIRE &amp; Peer-led DCP secondary</span>
+<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a>  analyses), and the Roadmap Shiny app.</span>
+<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a><span class="fu">## Resources</span></span>
+<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a>**Reference cards**</span>
+<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`stage1_mediated()`</span> documentation: <span class="in">`?TwoStageTMLE::stage1_mediated`</span></span>
+<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`two_stage_tmle_mediated()`</span> documentation: <span class="in">`?TwoStageTMLE::two_stage_tmle_mediated`</span></span>
+<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nakato &amp; Balzer (2026) — manuscript <span class="co">[</span><span class="ot">@nakato2026mediated</span><span class="co">]</span>.</span>
+<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>

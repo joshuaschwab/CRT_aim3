@@ -1,0 +1,112 @@
+---
+title: "4. The Two-Stage TMLE method"
+date-modified: last-modified
+---
+
+::: {.callout-note .draft}
+**Draft scaffold.** Need: full derivation following §9.3 of the strategy
+doc + Box 1 / Box 2; redraw Figure 5 inline; add a short video that
+walks through Stage 1 then Stage 2.
+:::
+
+## The big idea
+
+Two-Stage TMLE separates *missing-data adjustment* from *between-arm
+comparison*:
+
+| Stage | What it does | Independent unit | Estimator |
+|-------|--------------|------------------|-----------|
+| 1 | Adjust for missing outcomes / mediated missingness **within each cluster** | Individual | TMLE via `ltmle` |
+| 2 | Compare cluster-level endpoints **between arms** | Cluster | TMLE with Adaptive Pre-specification |
+
+The separation is the whole point. Stage 1 handles the messy individual-
+level data without trying to estimate the effect; Stage 2 sees clean
+cluster-level data and runs the comparison with maximum efficiency.
+
+## Stage 1: within-cluster missing-data adjustment
+
+For each cluster $c$ separately, fit an individual-level TMLE for the
+cluster-specific endpoint $Y^c$. Two variants:
+
+### Foundational (missing outcomes)
+
+Used when the outcome itself is differentially measured — e.g., viral
+suppression status known only for those who returned for follow-up.
+
+$$
+Y^c \;=\; \mathbb{E}\!\bigl[\mathbb{E}(Y \mid \Delta = 1, W, M)\bigr]
+$$
+
+where $\Delta$ is the outcome-measurement indicator and $(W, M)$ are
+baseline plus post-baseline covariates. One $\mathrm{ltmle}$ call per
+cluster, returning one cluster-level number. See
+[Chapter 5](05_R_foundational.qmd) for hands-on code.
+
+### Mediated (the multilevel-mediation-missing problem)
+
+Used when *eligibility / risk status* is what's partially missing,
+mediated by post-baseline screening — e.g., HIV risk status known only
+for those who got screened.
+
+$$
+Y^c \;=\; \frac{\mathbb{P}(Y_2 = 1)}{\mathbb{E}\!\bigl[\mathbb{P}(Y_1 = 1 \mid M = 1, W)\bigr]}
+$$
+
+A **ratio** estimator: numerator empirical, denominator TMLE. See
+[Chapter 6](06_R_mediated.qmd) for hands-on code.
+
+## Stage 2: cluster-level TMLE with Adaptive Pre-specification
+
+Hand the $J$ cluster-level endpoints to a cluster-level TMLE that
+compares treated to control:
+
+$$
+\Psi \;=\; \mathbb{E}\bigl[Y^c(1) - Y^c(0)\bigr]
+$$
+
+**Adaptive Pre-specification** (APS) picks the adjustment variable that
+*minimises the CV variance* of the resulting TMLE, while preserving
+Type-I error control [@balzer2016aps]. With few clusters, APS routinely
+yields 4–6× efficiency gains over an unadjusted estimator.
+
+## Why this is doubly robust and efficient
+
+Both stages plug in machine-learning (`SuperLearner`) candidate fits.
+Stage 1 is doubly robust in the outcome regression and the
+$\Delta$-mechanism / $M$-mechanism. Stage 2 is doubly robust in the
+cluster-level outcome regression and the (known) randomization
+distribution.
+
+When both are estimated well, Two-Stage TMLE is **efficient** — it
+achieves the smallest asymptotic variance among regular, asymptotically
+linear estimators.
+
+## On variance and finite-sample inference
+
+Stage 2's variance is computed from the cluster-level influence curve
+and **treats Stage 1's endpoint as a fixed observation at the cluster
+level**. This is justified asymptotically when within-cluster sample
+sizes are large; see Box 2 of @balzer2021twostage. Empirically, Nakato
+(2026) verifies acceptable coverage at $N_c \approx 200$ per cluster,
+$J \in \{20, 30, 50, 70\}$ — well within the regime of most HIV
+prevention CRTs.
+
+## Where this leaves us
+
+You now know enough to run real code:
+
+- [Chapter 5](05_R_foundational.qmd) — `stage1_tmle()` + `stage2_tmle()` on
+  a CRT with missing outcomes.
+- [Chapter 6](06_R_mediated.qmd) — `stage1_mediated()` + `stage2_tmle()`
+  on a CRT with the multilevel-mediation-missing problem.
+
+## Resources
+
+::: {.callout-tip}
+**Further reading**
+
+- @balzer2021twostage — the foundational paper.
+- @balzer2016aps — Adaptive Pre-specification.
+- @nakato2026mediated — the mediated Stage 1 estimator.
+- @benitez2023crt — comparator methods.
+:::

@@ -1,0 +1,169 @@
+---
+title: "5. Hands-on: missing outcomes"
+date-modified: last-modified
+execute:
+  warning: false
+  message: false
+---
+
+```{r setup, include = FALSE}
+# Render-time guard: if TwoStageTMLE isn't installed, fall back to
+# eval: false so the rest of the site still builds for reviewers.
+have_pkg <- requireNamespace("TwoStageTMLE", quietly = TRUE)
+knitr::opts_chunk$set(eval = have_pkg, collapse = TRUE, comment = "#>")
+```
+
+```{r install-msg, eval = !have_pkg, echo = FALSE, results = "asis"}
+cat("::: {.callout-warning}\n",
+    "The `TwoStageTMLE` package is not installed; code below is shown but not run. ",
+    "See the [README](README.md) for installation steps.\n",
+    ":::\n", sep = "")
+```
+
+::: {.callout-tip}
+**Live R in the browser.** This site uses [webR](https://docs.r-wasm.org/webr/).
+Chunks marked `{webr-r}` are editable — change the code, click *Run*, see the
+new output. No R install needed. (The cells that call `TwoStageTMLE` directly
+still render server-side until the package ships a WebAssembly binary; see
+the README's roadmap.)
+:::
+
+This chapter walks through the **foundational** Two-Stage TMLE pipeline
+[@balzer2021twostage] on a simulated CRT with **missing outcomes**. We:
+
+1. Generate one trial — 30 clusters, 100–200 participants each, pair-matched.
+2. Run **Stage 1** within each cluster (TMLE for the cluster-specific mean
+   outcome, adjusting for differential measurement).
+3. Run **Stage 2** at the cluster level with Adaptive Pre-specification.
+4. Report the point estimate, 95% CI, and inspect the chosen adjustment
+   variable.
+
+## Generate one CRT
+
+```{r generate}
+library(TwoStageTMLE)
+library(data.table)
+
+set.seed(1)
+J  <- 30
+n  <- c(100, 150, 200)
+X  <- TwoStageTMLE:::gen_data_complex(effect = TRUE, n = n, J = J)
+O  <- TwoStageTMLE:::get_obs(X, exclude = FALSE)
+
+head(O[, c("id", "pair", "A", "X1", "X2", "M", "Delta", "Y")])
+```
+
+`Delta` indicates outcome measurement (0 if missed); `Y` is `NA` where
+`Delta = 0`. `X1`, `X2`, `M` are individual covariates; `X1.c`, `X2.c`
+are the cluster-level means.
+
+::: {.callout-note}
+**Try it.** This cell runs **in your browser**. Tweak the parameters and
+see how the cluster-level summaries shift before any TMLE has been
+applied — useful intuition for why Stage 1 matters.
+:::
+
+```{webr-r}
+#| label: explore-missingness-in-browser
+#| autorun: false
+library(data.table)
+set.seed(1)
+
+# Mini CRT: J clusters, n_per individuals per cluster.
+J <- 10; n_per <- 80
+
+dat <- rbindlist(lapply(seq_len(J), function(j) {
+  W      <- rnorm(n_per)
+  A      <- rbinom(1, 1, 0.5)                            # cluster trt
+  pDelta <- plogis(-0.3 + 0.7*A + 0.6*W)                 # measurement depends on W and A!
+  Delta  <- rbinom(n_per, 1, pDelta)
+  Y      <- rbinom(n_per, 1, plogis(-0.5 + 0.5*A + 0.8*W))
+  Y[Delta == 0] <- NA_integer_
+  data.table(id = j, A = A, W = W, Delta = Delta, Y = Y)
+}))
+
+# Naive complete-case mean per cluster (biased) vs. an honest fraction-measured.
+dat[, .(meanY_naive = mean(Y, na.rm = TRUE),
+        pct_measured = mean(Delta)),
+    by = .(id, A)][order(A, id)]
+```
+
+
+## Stage 1 — within-cluster missing-data adjustment
+
+```{r stage1}
+stage1 <- stage1_tmle(
+  data       = O,
+  ind_cov    = c("X1", "X2", "M"),
+  clust_cov  = c("X1.c", "X2.c"),
+  sl_library = c("SL.mean", "SL.glm", "SL.gam")
+)
+stage1[, .(id, pair, A, X1.c, X2.c, unadj, tmle)]
+```
+
+`unadj` is the simple mean among the measured; `tmle` is the cluster
+mean adjusted for differential measurement.
+
+## Stage 2 — cluster-level TMLE + Adaptive Pre-specification
+
+```{r stage2}
+s2 <- copy(stage1)
+s2[, Y := tmle]
+s2 <- add_weights(s2, target = "clust")
+
+cand <- cand_adj(c("X1.c", "X2.c"))
+
+est <- stage2_tmle(
+  data          = s2,
+  goal          = "RD",
+  target        = "clust",
+  break_match   = FALSE,           # preserve the matched pairs
+  do_data_adapt = TRUE,
+  cand_q_adj    = cand$cand_q_adj, cand_q_form = cand$cand_q_form,
+  cand_g_adj    = cand$cand_g_adj, cand_g_form = cand$cand_g_form,
+  remove_pscore = TRUE
+)
+est[, .(est, ci_lo, ci_hi, se, pval, q_adj, g_adj)]
+```
+
+## What APS chose
+
+`q_adj` and `g_adj` index the candidate adjustment vector — `1 = "U"`
+(the unadjusted estimator), `2 = "X1.c"`, `3 = "X2.c"`. With small
+clusters and well-balanced randomization, APS often picks the unadjusted
+estimator for the propensity score (because the trial-arm assignment is
+known to be 0.5) and the most-predictive covariate for the outcome.
+
+## End-to-end driver
+
+```{r e2e, eval = FALSE}
+out <- two_stage_tmle(
+  data       = O,
+  ind_cov    = c("X1", "X2", "M"),
+  clust_cov  = c("X1.c", "X2.c"),
+  goal       = "RD", target = "clust", break_match = FALSE,
+  do_data_adapt = TRUE,
+  cand_q_adj = cand$cand_q_adj, cand_q_form = cand$cand_q_form,
+  cand_g_adj = cand$cand_g_adj, cand_g_form = cand$cand_g_form,
+  remove_pscore = TRUE
+)
+out$est        # the Stage 2 estimate
+out$stage1     # the cluster-level table from Stage 1
+```
+
+## Where to go next
+
+- [Chapter 6](06_R_mediated.qmd) — when the missing variable is
+  *eligibility* (mediated by screening), not the outcome.
+- The package vignette `vignette("reproduce-paper")` walks through the
+  full simulation grid of @balzer2021twostage.
+
+## Resources
+
+::: {.callout-tip}
+**Reference cards**
+
+- `stage1_tmle()` documentation: `?TwoStageTMLE::stage1_tmle`
+- `stage2_tmle()` documentation: `?TwoStageTMLE::stage2_tmle`
+- `cand_adj()` documentation: `?TwoStageTMLE::cand_adj`
+:::

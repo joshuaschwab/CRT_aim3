@@ -1,0 +1,106 @@
+---
+title: "2. The Causal Roadmap for CRTs"
+date-modified: last-modified
+---
+
+::: {.callout-note .draft}
+**Draft scaffold.** Each Roadmap step below has a one-line placeholder.
+Year 1 deliverable: fill in steps 1–6 with the SAPPHIRE running example,
+mirroring **Table 6** of the strategy doc. Year 2: embed the Shiny
+"Roadmap walker" as an iframe at the bottom of this page.
+:::
+
+## The 8-step roadmap
+
+The Causal Roadmap [@petersen2014causalroadmap] is a step-by-step
+framework that takes you from a substantive research question to a
+defensible statistical analysis. Every chapter on this site is keyed to
+one or more of these steps.
+
+::: {.roadmap-step}
+#### Step 1 — State the research question
+
+The target population, the trial arms, the outcome, and the time horizon.
+
+*Running example:* "What would be the difference in PrEP initiation
+within X-weeks if all persons with HIV risk received the intervention
+vs. the standard-of-care?"
+:::
+
+::: {.roadmap-step}
+#### Step 2 — Specify the causal model
+
+A hierarchical (multilevel) causal model that names the variables,
+their temporal order, and the assumed independencies. For our setup:
+`E^c → W → L → M → Y1* → Y2`, with the cluster-level intervention `A^c`
+affecting `L, M, Y2` directly.
+:::
+
+::: {.roadmap-step}
+#### Step 3 — Define the causal effect via counterfactuals
+
+$\Psi^* = \mathbb{E}^*[Y^c(1) - Y^c(0)]$ where
+$Y^c(a^c) = \mathbb{P}^*[Y_2(a^c) = 1 \mid Y_1^*(a^c) = 1]$ — the
+counterfactual probability of starting PrEP among persons with HIV
+risk under trial arm $a^c$.
+:::
+
+::: {.roadmap-step}
+#### Step 4 — Specify the observed data
+
+$O^c = (E^c, A^c, W, L, M, Y_1, Y_2)$ per cluster; one row per
+individual nested within cluster.
+:::
+
+::: {.roadmap-step}
+#### Step 5 — Assess identifiability
+
+Translate the causal estimand into a statistical one — and *critically
+evaluate* the assumptions that licence the translation. In our example:
+PrEP uptake is completely ascertained, and the screened are
+representative of the unscreened conditional on $(W, L)$.
+:::
+
+::: {.roadmap-step}
+#### Step 6 — Specify the statistical estimand
+
+Per [Box 1 of the strategy doc]: at the cluster level,
+$$
+Y^c \;=\; \frac{\mathbb{P}(Y_2 = 1)}{\mathbb{E}\!\bigl[\mathbb{P}(Y_1 = 1 \mid M = 1, W, L)\bigr]}.
+$$
+The trial-level estimand is then
+$$
+\Psi \;=\; \mathbb{E}\bigl[\mathbb{E}(Y^c \mid A^c = 1, E^c) - \mathbb{E}(Y^c \mid A^c = 0, E^c)\bigr].
+$$
+:::
+
+::: {.roadmap-step}
+#### Step 7 — Statistical estimation and inference
+
+Two-Stage TMLE. See [Chapter 4](04_info_two_stage_tmle.qmd) for the
+conceptual basis and [Chapter 5](05_R_foundational.qmd) for the code.
+:::
+
+::: {.roadmap-step}
+#### Step 8 — Interpret
+
+Translate the statistical estimate back into the language of the
+research question, attending to any identification assumptions that
+may be challenged.
+:::
+
+## Where you are on the roadmap
+
+Most of this site lives in Steps 6–7 — the *statistical* layer. But the
+guarantees of Two-Stage TMLE depend on the work you do in Steps 1–5,
+which is why we'll keep linking back here as we go.
+
+## Resources
+
+::: {.callout-tip}
+**Further reading**
+
+- Petersen & van der Laan (2014), *Causal Models and Learning from Data*
+  [@petersen2014causalroadmap].
+- Chapter 1 of *Targeted Learning* [@vdl2011tlb].
+:::

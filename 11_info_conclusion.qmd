@@ -1,0 +1,93 @@
+---
+title: "7. Final remarks"
+date-modified: last-modified
+---
+
+::: {.callout-note .draft}
+**Draft scaffold.** Final paragraph should pull together the three R01
+aims into a coherent dissemination message. Add a "what's next" call to
+action and the support-email alias once one exists.
+:::
+
+## What you have now
+
+You have read about — and can run — Two-Stage TMLE in two settings:
+
+1. **Foundational** ([Chapter 5](05_R_foundational.qmd)) — missing
+   outcomes in a CRT.
+2. **Mediated** ([Chapter 6](06_R_mediated.qmd)) — the multilevel-
+   mediation-missing data problem when screening sits on the causal path.
+
+Both share the same Stage 2: a cluster-level TMLE with Adaptive
+Pre-specification, robust and efficient with few independent units.
+
+## What's coming
+
+::: {.roadmap-step}
+#### Year 2 — Effect heterogeneity (Aim 1B)
+
+A new chapter on **data-driven identification and evaluation of effect
+modifiers**, using cross-validated cluster-level CATE TMLE and the
+step-down maxT multiple-testing procedure.
+:::
+
+::: {.roadmap-step}
+#### Year 2 — The Roadmap Shiny walker
+
+A point-and-click web app, embedded right inside this site, that walks
+you through Causal Roadmap steps 1–6 and emits a fully-annotated R
+Markdown analysis file you can knit.
+:::
+
+::: {.roadmap-step}
+#### Year 3 — SAPPHIRE worked example (Aim 2)
+
+A real-data worked example on the SAPPHIRE trial — 16 communities,
+~80 000 men and women in rural Kenya and Uganda — showing how Two-Stage
+TMLE refines the primary effectiveness analysis of a dynamic-choice HIV
+prevention strategy.
+:::
+
+::: {.roadmap-step}
+#### Year 4 — Peer-led DCP worked example (Aim 2)
+
+A second real-data worked example on the Peer-led DCP trial — 14 clinic
+catchment areas, ~560 women working in bars and guesthouses in
+southwestern Uganda — showing the same methodology in a new
+implementation context.
+:::
+
+::: {.roadmap-step}
+#### Year 5 — Refinements
+
+Final external review board feedback, long-tail FAQ, and an archival
+snapshot deposited at Zenodo for long-term reproducibility.
+:::
+
+## Get involved
+
+The methods, the code, and this site are all open. Contributions and
+critiques are welcome:
+
+- **Code or method issue?** Open a ticket at
+  <https://github.com/LauraBalzer/TwoStageTMLE/issues>.
+- **Suggestion for the site?** Open a PR or an issue at the site's repo.
+- **Question that doesn't fit either?** [Support email — TBD].
+
+## Citation
+
+If you use the methods or code in your work, please cite:
+
+> Balzer L.B., van der Laan M., Ayieko J., Kamya M., Chamie G., Schwab J.,
+> Havlir D., Petersen M. (2021). *Two-Stage TMLE to Reduce Bias and Improve
+> Efficiency in Cluster Randomized Trials.* arXiv:2106.15737.
+
+For the mediated Stage 1 estimator:
+
+> Nakato J., Balzer L.B. (2026). *Methods for evaluating overall
+> effectiveness of cluster-level strategies aiming to improve reach and
+> health outcomes.* [arXiv: forthcoming.]
+
+## Acknowledgements
+
+This work is supported by the National Institutes of Health.

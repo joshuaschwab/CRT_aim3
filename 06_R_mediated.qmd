@@ -1,0 +1,178 @@
+---
+title: "6. Hands-on: the multilevel-mediation-missing problem"
+date-modified: last-modified
+execute:
+  warning: false
+  message: false
+---
+
+```{r setup, include = FALSE}
+have_pkg <- requireNamespace("TwoStageTMLE", quietly = TRUE)
+knitr::opts_chunk$set(eval = have_pkg, collapse = TRUE, comment = "#>")
+```
+
+```{r install-msg, eval = !have_pkg, echo = FALSE, results = "asis"}
+cat("::: {.callout-warning}\n",
+    "The `TwoStageTMLE` package is not installed; code below is shown but not run. ",
+    "See the [README](README.md) for installation steps.\n",
+    ":::\n", sep = "")
+```
+
+This chapter walks through the **mediated** Stage 1 estimator
+[@nakato2026mediated] on a simulated CRT where:
+
+* The intervention $A$ aims to expand both **risk screening** and **uptake
+  of biomedical prevention**.
+* The eligibility variable $Y_1^*$ (e.g., true HIV risk status) is
+  observed *only when screened* (when $M = 1$).
+* The outcome $Y_2$ (e.g., PrEP uptake) is fully observed (e.g., clinical
+  records).
+
+The cluster-level endpoint is the **ratio**:
+
+$$
+Y^c \;=\; \frac{\mathbb{P}(Y_2 = 1)}{\mathbb{E}\!\bigl[\mathbb{P}(Y_1 = 1 \mid M = 1, W)\bigr]}.
+$$
+
+Numerator: empirical proportion uptaking. Denominator: TMLE for the
+prevalence of risk, fit within each cluster.
+
+## Generate one CRT
+
+We use a condensed version of the Nakato (2026) DGP. The intervention
+boosts screening; outcomes only happen among the screened-and-eligible.
+
+```{r dgp}
+library(TwoStageTMLE)
+library(data.table)
+
+set.seed(2026)
+
+gen_cluster <- function(N, j) {
+  UE1 <- rep(runif(1, -1, 1), N); UE2 <- rep(runif(1, -1, 1), N)
+  E1  <- rep(rnorm(1, UE1[1], 0.5), N); E2 <- rep(rnorm(1, UE2[1], 0.5), N)
+  W1  <- rnorm(N, 0, 0.5); W2  <- rnorm(N, 0, 0.5); W3 <- rbinom(N, 1, 0.5)
+  pY1 <- plogis(0.5 + W1 + W2 - W3 + 0.25*E1 + 0.25*E2)
+  data.table(
+    id = j, E1 = E1, E2 = E2, W1 = W1, W2 = W2, W3 = W3,
+    UE1 = UE1, UE2 = UE2, Y1_star = as.integer(runif(N) < pY1)
+  )
+}
+
+J <- 20
+dat <- rbindlist(lapply(seq_len(J), function(j) gen_cluster(120, j)))
+A_per <- sample(c(rep(1L, J/2), rep(0L, J/2)))
+dat[, A := A_per[id]]
+
+pM <- plogis(-0.5 + 0.6*dat$A + 0.5*dat$W1 + 0.4*dat$W2 -
+              0.4*dat$A*dat$W3 + 0.4*(1-dat$A)*dat$W3 +
+              0.1*dat$UE1 + 0.1*dat$UE2)
+dat[, M  := as.integer(runif(.N) < pM)]
+dat[, Y1 := Y1_star * M]
+
+pY2 <- plogis(0.2 + 0.1*dat$A + dat$W1 + 0.5*dat$W2 +
+              2*dat$W3 + 0.2*dat$E1 + 0.2*dat$E2)
+dat[, Y2 := ifelse(Y1_star == 1 & M == 1,
+                   as.integer(runif(.N) < pY2),
+                   0L)]
+
+dat[, c("UE1", "UE2", "Y1_star") := NULL]
+head(dat[, .(id, A, W1, W2, W3, E1, E2, M, Y1, Y2)])
+```
+
+## Stage 1 — ratio endpoint per cluster
+
+```{r stage1}
+s1 <- stage1_mediated(
+  data       = dat,
+  ind_cov    = c("W1", "W2", "W3"),
+  clust_cov  = c("E1", "E2"),
+  sl_library = c("SL.mean", "SL.glm")
+)
+s1[, .(id, A, E1, E2, screened, eligible, unadj, tmle)]
+```
+
+Each row is one cluster. The four candidate endpoints:
+
+| Column     | Estimand                              | Bias               |
+|------------|---------------------------------------|--------------------|
+| `screened` | $\mathbb{P}(Y_2 \mid M = 1)$                  | Biased (conditions on a post-treatment mediator) |
+| `eligible` | $\mathbb{P}(Y_2 \mid Y_1 = 1)$                | Biased (conditions on observed-eligible) |
+| `unadj`    | $\mathbb{P}(Y_2) / \mathbb{P}(Y_1 \mid M = 1)$        | Unadjusted denominator |
+| **`tmle`** | $\mathbb{P}(Y_2) / \mathrm{TMLE}[\mathbb{P}(Y_1 \mid M = 1, W)]$ | **Recommended endpoint** |
+
+The first two exist so you can see how conditioning the wrong way shifts
+the estimate; `tmle` is what gets fed to Stage 2.
+
+## Stage 2 — cluster-level TMLE on the ratio endpoint
+
+Stage 2 is *unchanged* from [Chapter 5](05_R_foundational.qmd) — the
+ratio endpoint slots into the same machinery:
+
+```{r stage2}
+s2 <- copy(s1)
+s2[, Y := tmle]
+s2 <- add_weights(s2, target = "clust")
+
+cand <- cand_adj(c("E1", "E2"))
+
+est <- stage2_tmle(
+  data          = s2,
+  goal          = "RD",
+  target        = "clust",
+  break_match   = TRUE,
+  do_data_adapt = TRUE,
+  cand_q_adj    = cand$cand_q_adj, cand_q_form = cand$cand_q_form,
+  cand_g_adj    = cand$cand_g_adj, cand_g_form = cand$cand_g_form,
+  remove_pscore = TRUE
+)
+est[, .(est, ci_lo, ci_hi, se, pval, q_adj, g_adj)]
+```
+
+## End-to-end driver
+
+```{r e2e, eval = FALSE}
+out <- two_stage_tmle_mediated(
+  data          = dat,
+  ind_cov       = c("W1", "W2", "W3"),
+  clust_cov     = c("E1", "E2"),
+  sl_library    = c("SL.mean", "SL.glm"),
+  goal          = "RD", target = "clust", break_match = TRUE,
+  do_data_adapt = TRUE,
+  cand_q_adj    = cand$cand_q_adj, cand_q_form = cand$cand_q_form,
+  cand_g_adj    = cand$cand_g_adj, cand_g_form = cand$cand_g_form,
+  remove_pscore = TRUE
+)
+out$est        # Stage 2 estimate
+out$stage1     # cluster table with all four candidate endpoints
+```
+
+## A note on variance
+
+Stage 2 computes its variance from the cluster-level influence curve and
+treats the Stage 1 ratio as a *fixed observation at the cluster level*.
+The Stage-1 contribution to variance is asymptotically negligible when
+within-cluster sample sizes are large. Nakato (2026) verifies acceptable
+coverage at $N_c \approx 200$ per cluster, $J \in \{20, 30, 50, 70\}$.
+
+For inference also robust to the Adaptive Pre-specification selection,
+pass `do_cv_variance = TRUE` to `stage2_tmle()` — the returned data.table
+gets additional `cv_*` columns with the CV CI and p-value.
+
+## Where to go next
+
+- The package vignette `vignette("mediated-missing")` covers the same
+  flow with additional commentary.
+- [Chapter 7](11_info_conclusion.qmd) closes with the next steps — Aim
+  1B (effect heterogeneity), Aim 2 (SAPPHIRE & Peer-led DCP secondary
+  analyses), and the Roadmap Shiny app.
+
+## Resources
+
+::: {.callout-tip}
+**Reference cards**
+
+- `stage1_mediated()` documentation: `?TwoStageTMLE::stage1_mediated`
+- `two_stage_tmle_mediated()` documentation: `?TwoStageTMLE::two_stage_tmle_mediated`
+- Nakato & Balzer (2026) — manuscript [@nakato2026mediated].
+:::

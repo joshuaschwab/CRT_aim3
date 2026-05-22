@@ -1,0 +1,75 @@
+---
+title: "3. Challenges in CRTs"
+date-modified: last-modified
+---
+
+::: {.callout-note .draft}
+**Draft scaffold.** Each subsection needs a figure (reuse Figs 2 and 5
+from the strategy doc), a real-data anecdote from SEARCH / SEARCH-TB /
+SEARCH-IPT [@balzer2021twostage], and a forward link to where this
+site fixes the problem.
+:::
+
+This chapter names the three challenges that motivate the methodology
+developed in [Chapters 4](04_info_two_stage_tmle.qmd)–6.
+
+## 3a. The multilevel-mediation-missing data problem
+
+In CRTs of strategies that aim to expand both **reach** of an intervention
+and **outcomes among those reached**, three features collide:
+
+1. **Hierarchical data** — individuals are nested within clusters.
+2. **Mediated effect** — the intervention's first action (e.g., screening)
+   mediates its later action (e.g., PrEP uptake).
+3. **Missingness on the causal path** — underlying eligibility status is
+   observed only among the screened.
+
+Existing approaches that "adjust for differences between screened vs.
+not screened" *block* the indirect effect through screening and bias
+estimates of the overall effectiveness towards the null. This is the
+problem that motivates the **Nakato (2026) ratio-based Stage 1
+estimator** — see [Chapter 6](06_R_mediated.qmd).
+
+*Reference:* Figure 5 of the strategy doc; Box 1.
+
+## 3b. Few independent units, small effective sample size
+
+68% of CRTs randomize fewer than 40 clusters. Within-cluster dependence
+plus the cluster-level intervention itself shrinks the effective sample
+size further. Common approaches (mixed models, GEE with finite-sample
+corrections) tend to perform poorly:
+
+| # clusters | t-test bias | GEE+IPW bias | TMLE bias |
+|------------|-------------|--------------|-----------|
+| J = 30     | −32%        | −2%          | **−9%**   |
+
+(From simulated CRTs of an average treatment effect of −9% — Table 2 of
+the strategy doc.) Two-Stage TMLE's gain comes from
+(i) Stage-1 within-cluster missing-data adjustment, and
+(ii) Stage-2 Adaptive Pre-specification of the cluster-level adjustment
+covariate — see [Chapter 4](04_info_two_stage_tmle.qmd).
+
+## 3c. Effect heterogeneity
+
+Fewer than 30% of CRTs assess effect heterogeneity well — established
+subgroups miss data-driven insights, and naïve stratification on a
+cluster-level modifier (e.g., region) reduces the effective sample to
+just the clusters with that characteristic. Regression with interaction
+terms inflates Type-I errors (one simulation: **47.2%**).
+
+::: {.callout-note .draft}
+*Year 2 deliverable:* a Chapter 7 (or 5b) on **data-adaptive
+identification and evaluation of effect heterogeneity** via the
+cross-validated cluster-level CATE TMLE plus step-down maxT multiple
+testing — Aim 1B of the R01.
+:::
+
+## Resources
+
+::: {.callout-tip}
+**Further reading**
+
+- Strategy doc, Figures 2 and 5; Table 2.
+- Benitez et al. (2023), *Comparative methods for the analysis of cluster
+  randomized trials* [@benitez2023crt].
+:::

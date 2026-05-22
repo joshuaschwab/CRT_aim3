@@ -1,0 +1,73 @@
+project:
+  type: website
+  output-dir: docs
+
+# In-browser R via webR (https://docs.r-wasm.org/webr/).
+# `packages` are pre-loaded into the webR session on page load. They must
+# be available either in the default webR repo (https://repo.r-wasm.org/)
+# or in a wasm-built r-universe binary. TwoStageTMLE is *not* yet wasm-
+# published; once it is, add it here and the {webr-r} chunks in
+# chapters 5 and 6 can call it directly.
+webr:
+  show-startup-message: true
+  packages:
+    - data.table
+
+filters:
+  - webr
+
+website:
+  title: "Cluster Randomized Trials: <br/> Methods for Reach and Impact"
+  description: >
+    Training and tools for rigorous analysis of cluster randomized trials —
+    anchored on the Causal Roadmap, powered by Two-Stage TMLE.
+  bread-crumbs: false
+  page-navigation: true
+  navbar:
+    left:
+      - href: 00_instructors.qmd
+        text: Team
+      - href: https://github.com/LauraBalzer/TwoStageTMLE
+        text: R package
+        icon: github
+  sidebar:
+    style: floating
+    search: true
+    contents:
+      - href: index.qmd
+        text: Welcome
+      - section: "Foundations"
+        contents:
+          - href: 01_info_why_crts.qmd
+            text: 1. Why CRTs?
+          - href: 02_info_roadmap.qmd
+            text: 2. The Causal Roadmap for CRTs
+          - href: 03_info_challenges.qmd
+            text: 3. Challenges in CRTs
+      - section: "Two-Stage TMLE"
+        contents:
+          - href: 04_info_two_stage_tmle.qmd
+            text: 4. The method
+          - href: 05_R_foundational.qmd
+            text: 5. Hands-on — missing outcomes
+          - href: 06_R_mediated.qmd
+            text: 6. Hands-on — mediated missingness
+      - href: 11_info_conclusion.qmd
+        text: 7. Final remarks
+    tools:
+      - icon: github
+        href: https://github.com/LauraBalzer/TwoStageTMLE
+        text: Source code
+
+format:
+  html:
+    theme: default
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    code-tools: true
+    code-link: true
+
+bibliography: references.bib
+

@@ -1,0 +1,614 @@
+[
+  {
+    "objectID": "03_info_challenges.html",
+    "href": "03_info_challenges.html",
+    "title": "3. Challenges in CRTs",
+    "section": "",
+    "text": "Note\n\n\n\nDraft scaffold. Each subsection needs a figure (reuse Figs 2 and 5 from the strategy doc), a real-data anecdote from SEARCH / SEARCH-TB / SEARCH-IPT (Balzer et al. 2021), and a forward link to where this site fixes the problem.\nThis chapter names the three challenges that motivate the methodology developed in Chapters 4–6.",
+    "crumbs": [
+      "Team",
+      "Foundations",
+      "3. Challenges in CRTs"
+    ]
+  },
+  {
+    "objectID": "03_info_challenges.html#a.-the-multilevel-mediation-missing-data-problem",
+    "href": "03_info_challenges.html#a.-the-multilevel-mediation-missing-data-problem",
+    "title": "3. Challenges in CRTs",
+    "section": "3a. The multilevel-mediation-missing data problem",
+    "text": "3a. The multilevel-mediation-missing data problem\nIn CRTs of strategies that aim to expand both reach of an intervention and outcomes among those reached, three features collide:\n\nHierarchical data — individuals are nested within clusters.\nMediated effect — the intervention’s first action (e.g., screening) mediates its later action (e.g., PrEP uptake).\nMissingness on the causal path — underlying eligibility status is observed only among the screened.\n\nExisting approaches that “adjust for differences between screened vs. not screened” block the indirect effect through screening and bias estimates of the overall effectiveness towards the null. This is the problem that motivates the Nakato (2026) ratio-based Stage 1 estimator — see Chapter 6.\nReference: Figure 5 of the strategy doc; Box 1.",
+    "crumbs": [
+      "Team",
+      "Foundations",
+      "3. Challenges in CRTs"
+    ]
+  },
+  {
+    "objectID": "03_info_challenges.html#b.-few-independent-units-small-effective-sample-size",
+    "href": "03_info_challenges.html#b.-few-independent-units-small-effective-sample-size",
+    "title": "3. Challenges in CRTs",
+    "section": "3b. Few independent units, small effective sample size",
+    "text": "3b. Few independent units, small effective sample size\n68% of CRTs randomize fewer than 40 clusters. Within-cluster dependence plus the cluster-level intervention itself shrinks the effective sample size further. Common approaches (mixed models, GEE with finite-sample corrections) tend to perform poorly:\n\n\n\n# clusters\nt-test bias\nGEE+IPW bias\nTMLE bias\n\n\n\n\nJ = 30\n−32%\n−2%\n−9%\n\n\n\n(From simulated CRTs of an average treatment effect of −9% — Table 2 of the strategy doc.) Two-Stage TMLE’s gain comes from (i) Stage-1 within-cluster missing-data adjustment, and (ii) Stage-2 Adaptive Pre-specification of the cluster-level adjustment covariate — see Chapter 4.",
+    "crumbs": [
+      "Team",
+      "Foundations",
+      "3. Challenges in CRTs"
+    ]
+  },
+  {
+    "objectID": "03_info_challenges.html#c.-effect-heterogeneity",
+    "href": "03_info_challenges.html#c.-effect-heterogeneity",
+    "title": "3. Challenges in CRTs",
+    "section": "3c. Effect heterogeneity",
+    "text": "3c. Effect heterogeneity\nFewer than 30% of CRTs assess effect heterogeneity well — established subgroups miss data-driven insights, and naïve stratification on a cluster-level modifier (e.g., region) reduces the effective sample to just the clusters with that characteristic. Regression with interaction terms inflates Type-I errors (one simulation: 47.2%).\n\n\n\n\n\n\nNote\n\n\n\nYear 2 deliverable: a Chapter 7 (or 5b) on data-adaptive identification and evaluation of effect heterogeneity via the cross-validated cluster-level CATE TMLE plus step-down maxT multiple testing — Aim 1B of the R01.",
+    "crumbs": [
+      "Team",
+      "Foundations",
+      "3. Challenges in CRTs"
+    ]
+  },
+  {
+    "objectID": "03_info_challenges.html#resources",
+    "href": "03_info_challenges.html#resources",
+    "title": "3. Challenges in CRTs",
+    "section": "Resources",
+    "text": "Resources\n\n\n\n\n\n\nTip\n\n\n\nFurther reading\n\nStrategy doc, Figures 2 and 5; Table 2.\nBenitez et al. (2023), Comparative methods for the analysis of cluster randomized trials (Benitez et al. 2023).",
+    "crumbs": [
+      "Team",
+      "Foundations",
+      "3. Challenges in CRTs"
+    ]
+  },
+  {
+    "objectID": "06_R_mediated.html",
+    "href": "06_R_mediated.html",
+    "title": "6. Hands-on: the multilevel-mediation-missing problem",
+    "section": "",
+    "text": "This chapter walks through the mediated Stage 1 estimator (Nakato and Balzer 2026) on a simulated CRT where:\nThe cluster-level endpoint is the ratio:\n\\[\nY^c \\;=\\; \\frac{\\mathbb{P}(Y_2 = 1)}{\\mathbb{E}\\!\\bigl[\\mathbb{P}(Y_1 = 1 \\mid M = 1, W)\\bigr]}.\n\\]\nNumerator: empirical proportion uptaking. Denominator: TMLE for the prevalence of risk, fit within each cluster.",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "6. Hands-on — mediated missingness"
+    ]
+  },
+  {
+    "objectID": "06_R_mediated.html#generate-one-crt",
+    "href": "06_R_mediated.html#generate-one-crt",
+    "title": "6. Hands-on: the multilevel-mediation-missing problem",
+    "section": "Generate one CRT",
+    "text": "Generate one CRT\nWe use a condensed version of the Nakato (2026) DGP. The intervention boosts screening; outcomes only happen among the screened-and-eligible.\n\nlibrary(TwoStageTMLE)\nlibrary(data.table)\n\nset.seed(2026)\n\ngen_cluster &lt;- function(N, j) {\n  UE1 &lt;- rep(runif(1, -1, 1), N); UE2 &lt;- rep(runif(1, -1, 1), N)\n  E1  &lt;- rep(rnorm(1, UE1[1], 0.5), N); E2 &lt;- rep(rnorm(1, UE2[1], 0.5), N)\n  W1  &lt;- rnorm(N, 0, 0.5); W2  &lt;- rnorm(N, 0, 0.5); W3 &lt;- rbinom(N, 1, 0.5)\n  pY1 &lt;- plogis(0.5 + W1 + W2 - W3 + 0.25*E1 + 0.25*E2)\n  data.table(\n    id = j, E1 = E1, E2 = E2, W1 = W1, W2 = W2, W3 = W3,\n    UE1 = UE1, UE2 = UE2, Y1_star = as.integer(runif(N) &lt; pY1)\n  )\n}\n\nJ &lt;- 20\ndat &lt;- rbindlist(lapply(seq_len(J), function(j) gen_cluster(120, j)))\nA_per &lt;- sample(c(rep(1L, J/2), rep(0L, J/2)))\ndat[, A := A_per[id]]\n\npM &lt;- plogis(-0.5 + 0.6*dat$A + 0.5*dat$W1 + 0.4*dat$W2 -\n              0.4*dat$A*dat$W3 + 0.4*(1-dat$A)*dat$W3 +\n              0.1*dat$UE1 + 0.1*dat$UE2)\ndat[, M  := as.integer(runif(.N) &lt; pM)]\ndat[, Y1 := Y1_star * M]\n\npY2 &lt;- plogis(0.2 + 0.1*dat$A + dat$W1 + 0.5*dat$W2 +\n              2*dat$W3 + 0.2*dat$E1 + 0.2*dat$E2)\ndat[, Y2 := ifelse(Y1_star == 1 & M == 1,\n                   as.integer(runif(.N) &lt; pY2),\n                   0L)]\n\ndat[, c(\"UE1\", \"UE2\", \"Y1_star\") := NULL]\nhead(dat[, .(id, A, W1, W2, W3, E1, E2, M, Y1, Y2)])\n#&gt;       id     A          W1          W2    W3         E1        E2     M    Y1\n#&gt;    &lt;int&gt; &lt;int&gt;       &lt;num&gt;       &lt;num&gt; &lt;int&gt;      &lt;num&gt;     &lt;num&gt; &lt;int&gt; &lt;int&gt;\n#&gt; 1:     1     0 -0.04237439  0.44847287     1 -0.1424984 0.1826801     1     0\n#&gt; 2:     1     0 -0.33331981 -0.86939636     1 -0.1424984 0.1826801     0     0\n#&gt; 3:     1     0 -1.25804452  0.23442397     0 -0.1424984 0.1826801     0     0\n#&gt; 4:     1     0 -0.36757340 -0.27207384     1 -0.1424984 0.1826801     0     0\n#&gt; 5:     1     0 -0.51006113 -0.08270708     0 -0.1424984 0.1826801     1     1\n#&gt; 6:     1     0  0.05677722  0.27608328     1 -0.1424984 0.1826801     1     0\n#&gt;       Y2\n#&gt;    &lt;int&gt;\n#&gt; 1:     0\n#&gt; 2:     0\n#&gt; 3:     0\n#&gt; 4:     0\n#&gt; 5:     1\n#&gt; 6:     0",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "6. Hands-on — mediated missingness"
+    ]
+  },
+  {
+    "objectID": "06_R_mediated.html#stage-1-ratio-endpoint-per-cluster",
+    "href": "06_R_mediated.html#stage-1-ratio-endpoint-per-cluster",
+    "title": "6. Hands-on: the multilevel-mediation-missing problem",
+    "section": "Stage 1 — ratio endpoint per cluster",
+    "text": "Stage 1 — ratio endpoint per cluster\n\ns1 &lt;- stage1_mediated(\n  data       = dat,\n  ind_cov    = c(\"W1\", \"W2\", \"W3\"),\n  clust_cov  = c(\"E1\", \"E2\"),\n  sl_library = c(\"SL.mean\", \"SL.glm\")\n)\ns1[, .(id, A, E1, E2, screened, eligible, unadj, tmle)]\n#&gt;        id     A           E1          E2  screened  eligible     unadj\n#&gt;     &lt;int&gt; &lt;int&gt;        &lt;num&gt;       &lt;num&gt;     &lt;num&gt;     &lt;num&gt;     &lt;num&gt;\n#&gt;  1:     1     0 -0.142498439  0.18268007 0.3333333 0.7037037 0.3342593\n#&gt;  2:     2     1 -0.267335239 -0.12778233 0.4545455 0.7812500 0.3580729\n#&gt;  3:     3     0 -0.754100747  0.88039990 0.4800000 0.8000000 0.3333333\n#&gt;  4:     4     0 -1.127750674  0.69101053 0.3695652 0.7391304 0.2833333\n#&gt;  5:     5     1 -1.385412095 -0.85150246 0.3584906 0.7307692 0.3227564\n#&gt;  6:     6     0 -1.398003246  1.76301648 0.4888889 0.8461538 0.3173077\n#&gt;  7:     7     1 -0.818998847  0.22234323 0.3518519 0.7307692 0.3288462\n#&gt;  8:     8     0 -0.148256269  1.09219730 0.4444444 0.6857143 0.3085714\n#&gt;  9:     9     1  0.881473637 -1.38536090 0.3773585 0.7407407 0.3271605\n#&gt; 10:    10     1  1.139994081 -0.37827222 0.4285714 0.7272727 0.3393939\n#&gt; 11:    11     1  0.945661899  0.92871441 0.2830189 0.5555556 0.2453704\n#&gt; 12:    12     1 -0.204717496  0.42156132 0.3906250 0.8064516 0.4301075\n#&gt; 13:    13     0  0.162131226  0.67509491 0.5762712 0.7727273 0.3799242\n#&gt; 14:    14     1 -0.998726088  0.78946519 0.3777778 0.6800000 0.2550000\n#&gt; 15:    15     0  0.469214194 -0.27780578 0.5094340 0.8709677 0.3846774\n#&gt; 16:    16     0  1.214599835 -0.52245583 0.4285714 0.8076923 0.3298077\n#&gt; 17:    17     0  0.523969215  0.05977462 0.3859649 0.6875000 0.3265625\n#&gt; 18:    18     1 -0.760902968  0.21461463 0.4426230 0.8709677 0.4427419\n#&gt; 19:    19     1 -0.001048779 -0.04094535 0.5000000 0.7500000 0.3750000\n#&gt; 20:    20     0  1.183757610 -0.26481446 0.4561404 0.7878788 0.3742424\n#&gt;        id     A           E1          E2  screened  eligible     unadj\n#&gt;     &lt;int&gt; &lt;int&gt;        &lt;num&gt;       &lt;num&gt;     &lt;num&gt;     &lt;num&gt;     &lt;num&gt;\n#&gt;          tmle\n#&gt;         &lt;num&gt;\n#&gt;  1: 0.3466273\n#&gt;  2: 0.3831273\n#&gt;  3: 0.3533307\n#&gt;  4: 0.2999769\n#&gt;  5: 0.3436668\n#&gt;  6: 0.3235683\n#&gt;  7: 0.3464452\n#&gt;  8: 0.3229810\n#&gt;  9: 0.3295142\n#&gt; 10: 0.3672801\n#&gt; 11: 0.2470317\n#&gt; 12: 0.4442699\n#&gt; 13: 0.3892774\n#&gt; 14: 0.2570094\n#&gt; 15: 0.4089595\n#&gt; 16: 0.3309423\n#&gt; 17: 0.3562983\n#&gt; 18: 0.4427419\n#&gt; 19: 0.4018573\n#&gt; 20: 0.3542454\n#&gt;          tmle\n#&gt;         &lt;num&gt;\n\nEach row is one cluster. The four candidate endpoints:\n\n\n\n\n\n\n\nColumn\nEstimand\nBias\n\n\n\nscreened\n\\(\\mathbb{P}(Y_2 \\mid M = 1)\\)\nBiased (conditions on a post-treatment mediator)\n\n\neligible\n\\(\\mathbb{P}(Y_2 \\mid Y_1 = 1)\\)\nBiased (conditions on observed-eligible)\n\n\nunadj\n\\(\\mathbb{P}(Y_2) / \\mathbb{P}(Y_1 \\mid M = 1)\\)\nUnadjusted denominator\n\n\ntmle\n\\(\\mathbb{P}(Y_2) / \\mathrm{TMLE}[\\mathbb{P}(Y_1 \\mid M = 1, W)]\\)\nRecommended endpoint\n\n\n\nThe first two exist so you can see how conditioning the wrong way shifts the estimate; tmle is what gets fed to Stage 2.",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "6. Hands-on — mediated missingness"
+    ]
+  },
+  {
+    "objectID": "06_R_mediated.html#stage-2-cluster-level-tmle-on-the-ratio-endpoint",
+    "href": "06_R_mediated.html#stage-2-cluster-level-tmle-on-the-ratio-endpoint",
+    "title": "6. Hands-on: the multilevel-mediation-missing problem",
+    "section": "Stage 2 — cluster-level TMLE on the ratio endpoint",
+    "text": "Stage 2 — cluster-level TMLE on the ratio endpoint\nStage 2 is unchanged from Chapter 5 — the ratio endpoint slots into the same machinery:\n\ns2 &lt;- copy(s1)\ns2[, Y := tmle]\ns2 &lt;- add_weights(s2, target = \"clust\")\n\ncand &lt;- cand_adj(c(\"E1\", \"E2\"))\n\nest &lt;- stage2_tmle(\n  data          = s2,\n  goal          = \"RD\",\n  target        = \"clust\",\n  break_match   = TRUE,\n  do_data_adapt = TRUE,\n  cand_q_adj    = cand$cand_q_adj, cand_q_form = cand$cand_q_form,\n  cand_g_adj    = cand$cand_g_adj, cand_g_form = cand$cand_g_form,\n  remove_pscore = TRUE\n)\nest[, .(est, ci_lo, ci_hi, se, pval, q_adj, g_adj)]\n#&gt;            est       ci_lo      ci_hi         se      pval q_adj g_adj\n#&gt;          &lt;num&gt;       &lt;num&gt;      &lt;num&gt;      &lt;num&gt;     &lt;num&gt; &lt;int&gt; &lt;int&gt;\n#&gt; 1: 0.007673666 -0.04065632 0.05600365 0.02300418 0.7425532     1   -99",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "6. Hands-on — mediated missingness"
+    ]
+  },
+  {
+    "objectID": "06_R_mediated.html#end-to-end-driver",
+    "href": "06_R_mediated.html#end-to-end-driver",
+    "title": "6. Hands-on: the multilevel-mediation-missing problem",
+    "section": "End-to-end driver",
+    "text": "End-to-end driver\n\nout &lt;- two_stage_tmle_mediated(\n  data          = dat,\n  ind_cov       = c(\"W1\", \"W2\", \"W3\"),\n  clust_cov     = c(\"E1\", \"E2\"),\n  sl_library    = c(\"SL.mean\", \"SL.glm\"),\n  goal          = \"RD\", target = \"clust\", break_match = TRUE,\n  do_data_adapt = TRUE,\n  cand_q_adj    = cand$cand_q_adj, cand_q_form = cand$cand_q_form,\n  cand_g_adj    = cand$cand_g_adj, cand_g_form = cand$cand_g_form,\n  remove_pscore = TRUE\n)\nout$est        # Stage 2 estimate\nout$stage1     # cluster table with all four candidate endpoints",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "6. Hands-on — mediated missingness"
+    ]
+  },
+  {
+    "objectID": "06_R_mediated.html#a-note-on-variance",
+    "href": "06_R_mediated.html#a-note-on-variance",
+    "title": "6. Hands-on: the multilevel-mediation-missing problem",
+    "section": "A note on variance",
+    "text": "A note on variance\nStage 2 computes its variance from the cluster-level influence curve and treats the Stage 1 ratio as a fixed observation at the cluster level. The Stage-1 contribution to variance is asymptotically negligible when within-cluster sample sizes are large. Nakato (2026) verifies acceptable coverage at \\(N_c \\approx 200\\) per cluster, \\(J \\in \\{20, 30, 50, 70\\}\\).\nFor inference also robust to the Adaptive Pre-specification selection, pass do_cv_variance = TRUE to stage2_tmle() — the returned data.table gets additional cv_* columns with the CV CI and p-value.",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "6. Hands-on — mediated missingness"
+    ]
+  },
+  {
+    "objectID": "06_R_mediated.html#where-to-go-next",
+    "href": "06_R_mediated.html#where-to-go-next",
+    "title": "6. Hands-on: the multilevel-mediation-missing problem",
+    "section": "Where to go next",
+    "text": "Where to go next\n\nThe package vignette vignette(\"mediated-missing\") covers the same flow with additional commentary.\n\nChapter 7 closes with the next steps — Aim 1B (effect heterogeneity), Aim 2 (SAPPHIRE & Peer-led DCP secondary analyses), and the Roadmap Shiny app.",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "6. Hands-on — mediated missingness"
+    ]
+  },
+  {
+    "objectID": "06_R_mediated.html#resources",
+    "href": "06_R_mediated.html#resources",
+    "title": "6. Hands-on: the multilevel-mediation-missing problem",
+    "section": "Resources",
+    "text": "Resources\n\n\n\n\n\n\nTip\n\n\n\nReference cards\n\n\nstage1_mediated() documentation: ?TwoStageTMLE::stage1_mediated\n\n\ntwo_stage_tmle_mediated() documentation: ?TwoStageTMLE::two_stage_tmle_mediated\n\nNakato & Balzer (2026) — manuscript (Nakato and Balzer 2026).",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "6. Hands-on — mediated missingness"
+    ]
+  },
+  {
+    "objectID": "05_R_foundational.html",
+    "href": "05_R_foundational.html",
+    "title": "5. Hands-on: missing outcomes",
+    "section": "",
+    "text": "Tip\n\n\n\nLive R in the browser. This site uses webR. Chunks marked {webr-r} are editable — change the code, click Run, see the new output. No R install needed. (The cells that call TwoStageTMLE directly still render server-side until the package ships a WebAssembly binary; see the README’s roadmap.)\nThis chapter walks through the foundational Two-Stage TMLE pipeline (Balzer et al. 2021) on a simulated CRT with missing outcomes. We:",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "5. Hands-on — missing outcomes"
+    ]
+  },
+  {
+    "objectID": "05_R_foundational.html#generate-one-crt",
+    "href": "05_R_foundational.html#generate-one-crt",
+    "title": "5. Hands-on: missing outcomes",
+    "section": "Generate one CRT",
+    "text": "Generate one CRT\n\nlibrary(TwoStageTMLE)\nlibrary(data.table)\n\nset.seed(1)\nJ  &lt;- 30\nn  &lt;- c(100, 150, 200)\nX  &lt;- TwoStageTMLE:::gen_data_complex(effect = TRUE, n = n, J = J)\nO  &lt;- TwoStageTMLE:::get_obs(X, exclude = FALSE)\n\nhead(O[, c(\"id\", \"pair\", \"A\", \"X1\", \"X2\", \"M\", \"Delta\", \"Y\")])\n#&gt;   id pair A          X1         X2 M Delta Y\n#&gt; 1  1    1 0  0.12171443 -1.1722133 0     0 0\n#&gt; 2  1    1 0  0.48678916 -1.0851309 0     0 0\n#&gt; 3  1    1 0 -0.19685272  0.5744479 1     1 1\n#&gt; 4  1    1 0  0.14024865  0.1330852 1     1 1\n#&gt; 5  1    1 0  0.08878864  0.1914228 0     0 0\n#&gt; 6  1    1 0 -0.31602077  0.3199612 0     0 0\n\nDelta indicates outcome measurement (0 if missed); Y is NA where Delta = 0. X1, X2, M are individual covariates; X1.c, X2.c are the cluster-level means.\n\n\n\n\n\n\nNote\n\n\n\nTry it. This cell runs in your browser. Tweak the parameters and see how the cluster-level summaries shift before any TMLE has been applied — useful intuition for why Stage 1 matters.\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "5. Hands-on — missing outcomes"
+    ]
+  },
+  {
+    "objectID": "05_R_foundational.html#stage-1-within-cluster-missing-data-adjustment",
+    "href": "05_R_foundational.html#stage-1-within-cluster-missing-data-adjustment",
+    "title": "5. Hands-on: missing outcomes",
+    "section": "Stage 1 — within-cluster missing-data adjustment",
+    "text": "Stage 1 — within-cluster missing-data adjustment\n\nstage1 &lt;- stage1_tmle(\n  data       = O,\n  ind_cov    = c(\"X1\", \"X2\", \"M\"),\n  clust_cov  = c(\"X1.c\", \"X2.c\"),\n  sl_library = c(\"SL.mean\", \"SL.glm\", \"SL.gam\")\n)\nstage1[, .(id, pair, A, X1.c, X2.c, unadj, tmle)]\n#&gt;        id  pair     A         X1.c        X2.c     unadj      tmle\n#&gt;     &lt;int&gt; &lt;num&gt; &lt;num&gt;        &lt;num&gt;       &lt;num&gt;     &lt;num&gt;     &lt;num&gt;\n#&gt;  1:     1     1     0 -0.055309036 -0.14827633 0.9024390 0.8227728\n#&gt;  2:     2     2     1  0.742806857  0.44072813 0.7857143 0.8654099\n#&gt;  3:     3     3     1 -0.151892505 -0.19225546 0.4084507 0.5024838\n#&gt;  4:     4     4     0 -0.520989056 -0.38433212 0.9090909 0.6135929\n#&gt;  5:     5     5     0 -0.951113019  0.43096929 0.7619048 0.5573052\n#&gt;  6:     6     6     1 -0.800041290 -0.59865482 0.4320000 0.4993276\n#&gt;  7:     7     5     1 -0.348577331  0.44840066 0.5937500 0.7158162\n#&gt;  8:     8     7     0 -0.007556406 -0.76405223 0.9259259 0.8241207\n#&gt;  9:     9     8     1  0.358147425 -0.53603119 0.5000000 0.6281455\n#&gt; 10:    10     9     1 -0.191038987 -0.68028490 0.3483871 0.4403852\n#&gt; 11:    11    10     0  0.793226628 -0.55879863 0.9104478 0.8004203\n#&gt; 12:    12    11     0 -0.399859046 -0.87979436 0.7333333 0.6127734\n#&gt; 13:    13     1     1 -0.161749235  0.23383714 0.7321429 0.8042988\n#&gt; 14:    14    12     0 -0.330901918  0.77307729 0.9736842 0.9144864\n#&gt; 15:    15     6     0  0.279228219  0.61606920 1.0000000 1.0000000\n#&gt; 16:    16     4     1 -0.491487252  0.52174060 0.6461538 0.7647864\n#&gt; 17:    17    13     1  0.008106891 -0.03818526 0.4677419 0.6055902\n#&gt; 18:    18    14     1  0.471538416 -0.23261657 0.7000000 0.8026170\n#&gt; 19:    19     9     0 -0.784765116  0.56019028 0.8444444 0.5971522\n#&gt; 20:    20     3     0  0.796871940  0.20078300 0.9879518 0.9736503\n#&gt; 21:    21    10     1 -0.281396363  0.29886006 0.6944444 0.7487015\n#&gt; 22:    22    15     0  0.717015213 -0.25343269 0.9428571 0.8514051\n#&gt; 23:    23     8     0 -0.244202977 -0.46022467 0.8095238 0.5787181\n#&gt; 24:    24    12     1 -0.332948291  0.99212810 0.7432432 0.8621197\n#&gt; 25:    25    13     0 -0.085032737  0.26989141 0.8857143 0.8388072\n#&gt; 26:    26    15     1  0.705851525 -0.62439129 0.6034483 0.6996130\n#&gt; 27:    27     2     0  0.709701648 -0.74083262 0.8709677 0.6357699\n#&gt; 28:    28     7     1 -0.247101038 -0.05647028 0.6129032 0.7382877\n#&gt; 29:    29    11     1  0.538694813  0.77870606 0.7500000 0.8477487\n#&gt; 30:    30    14     0  0.937553528  0.17192304 0.9868421 0.9443204\n#&gt;        id  pair     A         X1.c        X2.c     unadj      tmle\n#&gt;     &lt;int&gt; &lt;num&gt; &lt;num&gt;        &lt;num&gt;       &lt;num&gt;     &lt;num&gt;     &lt;num&gt;\n\nunadj is the simple mean among the measured; tmle is the cluster mean adjusted for differential measurement.",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "5. Hands-on — missing outcomes"
+    ]
+  },
+  {
+    "objectID": "05_R_foundational.html#stage-2-cluster-level-tmle-adaptive-pre-specification",
+    "href": "05_R_foundational.html#stage-2-cluster-level-tmle-adaptive-pre-specification",
+    "title": "5. Hands-on: missing outcomes",
+    "section": "Stage 2 — cluster-level TMLE + Adaptive Pre-specification",
+    "text": "Stage 2 — cluster-level TMLE + Adaptive Pre-specification\n\ns2 &lt;- copy(stage1)\ns2[, Y := tmle]\ns2 &lt;- add_weights(s2, target = \"clust\")\n\ncand &lt;- cand_adj(c(\"X1.c\", \"X2.c\"))\n\nest &lt;- stage2_tmle(\n  data          = s2,\n  goal          = \"RD\",\n  target        = \"clust\",\n  break_match   = FALSE,           # preserve the matched pairs\n  do_data_adapt = TRUE,\n  cand_q_adj    = cand$cand_q_adj, cand_q_form = cand$cand_q_form,\n  cand_g_adj    = cand$cand_g_adj, cand_g_form = cand$cand_g_form,\n  remove_pscore = TRUE\n)\nest[, .(est, ci_lo, ci_hi, se, pval, q_adj, g_adj)]\n#&gt;            est    ci_lo        ci_hi         se       pval q_adj g_adj\n#&gt;          &lt;num&gt;    &lt;num&gt;        &lt;num&gt;      &lt;num&gt;      &lt;num&gt; &lt;int&gt; &lt;int&gt;\n#&gt; 1: -0.08921073 -0.17269 -0.005731443 0.03892195 0.03791793     3     1",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "5. Hands-on — missing outcomes"
+    ]
+  },
+  {
+    "objectID": "05_R_foundational.html#what-aps-chose",
+    "href": "05_R_foundational.html#what-aps-chose",
+    "title": "5. Hands-on: missing outcomes",
+    "section": "What APS chose",
+    "text": "What APS chose\nq_adj and g_adj index the candidate adjustment vector — 1 = \"U\" (the unadjusted estimator), 2 = \"X1.c\", 3 = \"X2.c\". With small clusters and well-balanced randomization, APS often picks the unadjusted estimator for the propensity score (because the trial-arm assignment is known to be 0.5) and the most-predictive covariate for the outcome.",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "5. Hands-on — missing outcomes"
+    ]
+  },
+  {
+    "objectID": "05_R_foundational.html#end-to-end-driver",
+    "href": "05_R_foundational.html#end-to-end-driver",
+    "title": "5. Hands-on: missing outcomes",
+    "section": "End-to-end driver",
+    "text": "End-to-end driver\n\nout &lt;- two_stage_tmle(\n  data       = O,\n  ind_cov    = c(\"X1\", \"X2\", \"M\"),\n  clust_cov  = c(\"X1.c\", \"X2.c\"),\n  goal       = \"RD\", target = \"clust\", break_match = FALSE,\n  do_data_adapt = TRUE,\n  cand_q_adj = cand$cand_q_adj, cand_q_form = cand$cand_q_form,\n  cand_g_adj = cand$cand_g_adj, cand_g_form = cand$cand_g_form,\n  remove_pscore = TRUE\n)\nout$est        # the Stage 2 estimate\nout$stage1     # the cluster-level table from Stage 1",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "5. Hands-on — missing outcomes"
+    ]
+  },
+  {
+    "objectID": "05_R_foundational.html#where-to-go-next",
+    "href": "05_R_foundational.html#where-to-go-next",
+    "title": "5. Hands-on: missing outcomes",
+    "section": "Where to go next",
+    "text": "Where to go next\n\n\nChapter 6 — when the missing variable is eligibility (mediated by screening), not the outcome.\nThe package vignette vignette(\"reproduce-paper\") walks through the full simulation grid of Balzer et al. (2021).",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "5. Hands-on — missing outcomes"
+    ]
+  },
+  {
+    "objectID": "05_R_foundational.html#resources",
+    "href": "05_R_foundational.html#resources",
+    "title": "5. Hands-on: missing outcomes",
+    "section": "Resources",
+    "text": "Resources\n\n\n\n\n\n\nTip\n\n\n\nReference cards\n\n\nstage1_tmle() documentation: ?TwoStageTMLE::stage1_tmle\n\n\nstage2_tmle() documentation: ?TwoStageTMLE::stage2_tmle\n\n\ncand_adj() documentation: ?TwoStageTMLE::cand_adj",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "5. Hands-on — missing outcomes"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Cluster Randomized Trials: Methods for Reach and Impact",
+    "section": "",
+    "text": "Note\n\n\n\nDraft scaffold. This site is under active development. Year-1 content covers Foundations (chapters 1–4) and two hands-on chapters that drive the TwoStageTMLE R package end-to-end. Effect heterogeneity, the Roadmap walker Shiny app, and the SAPPHIRE / Peer-led DCP worked examples will land in Years 2–4.",
+    "crumbs": [
+      "Team",
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "Cluster Randomized Trials: Methods for Reach and Impact",
+    "section": "Welcome",
+    "text": "Welcome\nCluster randomized trials (CRTs) randomize groups — communities, clinics, schools, health systems — rather than individuals. They are the design of choice when interventions act at the group level: training community health workers, changing a clinic’s care-delivery model, deploying a public-health campaign. CRTs are increasingly used to evaluate HIV prevention strategies that aim to both reach a target population and improve outcomes among those reached.\nCompared with individually-randomized trials, CRTs face three statistical challenges that standard methods handle poorly:\n\nFew independent units. Most CRTs randomize fewer than 40 clusters.\nMissing outcomes are nearly universal, and the missingness mechanism is often on the causal pathway (e.g., screening that itself depends on the intervention).\nEffect heterogeneity at the cluster-, sub-cluster-, and individual-level is rarely evaluated well — established subgroups miss data-driven insights, and naïve stratification is severely underpowered.\n\nThis site presents Two-Stage TMLE (Balzer et al. 2021) — a targeted machine-learning estimator that addresses all three challenges in a single framework. The estimator separates the per-cluster missing-data adjustment (Stage 1) from the between-cluster effect estimation (Stage 2), and is doubly robust, efficient, and preserves Type-I error control with few independent units.",
+    "crumbs": [
+      "Team",
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#what-you-will-learn",
+    "href": "index.html#what-you-will-learn",
+    "title": "Cluster Randomized Trials: Methods for Reach and Impact",
+    "section": "What you will learn",
+    "text": "What you will learn\nBy the end of this site, participants will be able to:\n\nState a CRT research question using the Causal Roadmap (Petersen and van der Laan 2014) and identify the multilevel data structure and missing-data mechanism.\nRun Two-Stage TMLE on a CRT with missing outcomes using the TwoStageTMLE R package — including Adaptive Pre-specification.\nDiagnose when the multilevel-mediation-missing data problem applies (post-baseline screening mediates the effect) and use the Nakato (2026) ratio-based Stage 1 estimator instead.\nWrite a Statistical Analysis Plan (SAP) for a CRT analysis that pre-specifies the Super Learner library, the candidate adjustment set, and the inference scheme.",
+    "crumbs": [
+      "Team",
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#how-to-use-this-site",
+    "href": "index.html#how-to-use-this-site",
+    "title": "Cluster Randomized Trials: Methods for Reach and Impact",
+    "section": "How to use this site",
+    "text": "How to use this site\nThe chapters are organised in two arcs:\n\nFoundations (chapters 1–3) — conceptual material: why CRTs need special methods, the Causal Roadmap, and the three core challenges.\nTwo-Stage TMLE (chapters 4–6) — the method itself, plus two hands-on chapters that run real code against simulated CRTs.\n\nEach R-coded chapter is reproducible: code chunks are executable and the data live alongside the chapter. Reading time per chapter: ~20 minutes.",
+    "crumbs": [
+      "Team",
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#acknowledgements",
+    "href": "index.html#acknowledgements",
+    "title": "Cluster Randomized Trials: Methods for Reach and Impact",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\nThis work is supported by the National Institutes of Health (PI: Laura Balzer, UC Berkeley). The site is built with Quarto and draws on the design of three earlier sites — the lmtp workshop, the NIH Collaboratory Rethinking Clinical Trials Living Textbook, and the CTML Introduction to Causal Inference.",
+    "crumbs": [
+      "Team",
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "04_info_two_stage_tmle.html",
+    "href": "04_info_two_stage_tmle.html",
+    "title": "4. The Two-Stage TMLE method",
+    "section": "",
+    "text": "Note\n\n\n\nDraft scaffold. Need: full derivation following §9.3 of the strategy doc + Box 1 / Box 2; redraw Figure 5 inline; add a short video that walks through Stage 1 then Stage 2.",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "4. The method"
+    ]
+  },
+  {
+    "objectID": "04_info_two_stage_tmle.html#the-big-idea",
+    "href": "04_info_two_stage_tmle.html#the-big-idea",
+    "title": "4. The Two-Stage TMLE method",
+    "section": "The big idea",
+    "text": "The big idea\nTwo-Stage TMLE separates missing-data adjustment from between-arm comparison:\n\n\n\n\n\n\n\n\n\nStage\nWhat it does\nIndependent unit\nEstimator\n\n\n\n\n1\nAdjust for missing outcomes / mediated missingness within each cluster\nIndividual\nTMLE via ltmle\n\n\n2\nCompare cluster-level endpoints between arms\nCluster\nTMLE with Adaptive Pre-specification\n\n\n\nThe separation is the whole point. Stage 1 handles the messy individual- level data without trying to estimate the effect; Stage 2 sees clean cluster-level data and runs the comparison with maximum efficiency.",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "4. The method"
+    ]
+  },
+  {
+    "objectID": "04_info_two_stage_tmle.html#stage-1-within-cluster-missing-data-adjustment",
+    "href": "04_info_two_stage_tmle.html#stage-1-within-cluster-missing-data-adjustment",
+    "title": "4. The Two-Stage TMLE method",
+    "section": "Stage 1: within-cluster missing-data adjustment",
+    "text": "Stage 1: within-cluster missing-data adjustment\nFor each cluster \\(c\\) separately, fit an individual-level TMLE for the cluster-specific endpoint \\(Y^c\\). Two variants:\n\nFoundational (missing outcomes)\nUsed when the outcome itself is differentially measured — e.g., viral suppression status known only for those who returned for follow-up.\n\\[\nY^c \\;=\\; \\mathbb{E}\\!\\bigl[\\mathbb{E}(Y \\mid \\Delta = 1, W, M)\\bigr]\n\\]\nwhere \\(\\Delta\\) is the outcome-measurement indicator and \\((W, M)\\) are baseline plus post-baseline covariates. One \\(\\mathrm{ltmle}\\) call per cluster, returning one cluster-level number. See Chapter 5 for hands-on code.\n\n\nMediated (the multilevel-mediation-missing problem)\nUsed when eligibility / risk status is what’s partially missing, mediated by post-baseline screening — e.g., HIV risk status known only for those who got screened.\n\\[\nY^c \\;=\\; \\frac{\\mathbb{P}(Y_2 = 1)}{\\mathbb{E}\\!\\bigl[\\mathbb{P}(Y_1 = 1 \\mid M = 1, W)\\bigr]}\n\\]\nA ratio estimator: numerator empirical, denominator TMLE. See Chapter 6 for hands-on code.",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "4. The method"
+    ]
+  },
+  {
+    "objectID": "04_info_two_stage_tmle.html#stage-2-cluster-level-tmle-with-adaptive-pre-specification",
+    "href": "04_info_two_stage_tmle.html#stage-2-cluster-level-tmle-with-adaptive-pre-specification",
+    "title": "4. The Two-Stage TMLE method",
+    "section": "Stage 2: cluster-level TMLE with Adaptive Pre-specification",
+    "text": "Stage 2: cluster-level TMLE with Adaptive Pre-specification\nHand the \\(J\\) cluster-level endpoints to a cluster-level TMLE that compares treated to control:\n\\[\n\\Psi \\;=\\; \\mathbb{E}\\bigl[Y^c(1) - Y^c(0)\\bigr]\n\\]\nAdaptive Pre-specification (APS) picks the adjustment variable that minimises the CV variance of the resulting TMLE, while preserving Type-I error control (Balzer et al. 2016). With few clusters, APS routinely yields 4–6× efficiency gains over an unadjusted estimator.",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "4. The method"
+    ]
+  },
+  {
+    "objectID": "04_info_two_stage_tmle.html#why-this-is-doubly-robust-and-efficient",
+    "href": "04_info_two_stage_tmle.html#why-this-is-doubly-robust-and-efficient",
+    "title": "4. The Two-Stage TMLE method",
+    "section": "Why this is doubly robust and efficient",
+    "text": "Why this is doubly robust and efficient\nBoth stages plug in machine-learning (SuperLearner) candidate fits. Stage 1 is doubly robust in the outcome regression and the \\(\\Delta\\)-mechanism / \\(M\\)-mechanism. Stage 2 is doubly robust in the cluster-level outcome regression and the (known) randomization distribution.\nWhen both are estimated well, Two-Stage TMLE is efficient — it achieves the smallest asymptotic variance among regular, asymptotically linear estimators.",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "4. The method"
+    ]
+  },
+  {
+    "objectID": "04_info_two_stage_tmle.html#on-variance-and-finite-sample-inference",
+    "href": "04_info_two_stage_tmle.html#on-variance-and-finite-sample-inference",
+    "title": "4. The Two-Stage TMLE method",
+    "section": "On variance and finite-sample inference",
+    "text": "On variance and finite-sample inference\nStage 2’s variance is computed from the cluster-level influence curve and treats Stage 1’s endpoint as a fixed observation at the cluster level. This is justified asymptotically when within-cluster sample sizes are large; see Box 2 of Balzer et al. (2021). Empirically, Nakato (2026) verifies acceptable coverage at \\(N_c \\approx 200\\) per cluster, \\(J \\in \\{20, 30, 50, 70\\}\\) — well within the regime of most HIV prevention CRTs.",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "4. The method"
+    ]
+  },
+  {
+    "objectID": "04_info_two_stage_tmle.html#where-this-leaves-us",
+    "href": "04_info_two_stage_tmle.html#where-this-leaves-us",
+    "title": "4. The Two-Stage TMLE method",
+    "section": "Where this leaves us",
+    "text": "Where this leaves us\nYou now know enough to run real code:\n\nChapter 5 — stage1_tmle() + stage2_tmle() on a CRT with missing outcomes.\nChapter 6 — stage1_mediated() + stage2_tmle() on a CRT with the multilevel-mediation-missing problem.",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "4. The method"
+    ]
+  },
+  {
+    "objectID": "04_info_two_stage_tmle.html#resources",
+    "href": "04_info_two_stage_tmle.html#resources",
+    "title": "4. The Two-Stage TMLE method",
+    "section": "Resources",
+    "text": "Resources\n\n\n\n\n\n\nTip\n\n\n\nFurther reading\n\nBalzer et al. (2021) — the foundational paper.\nBalzer et al. (2016) — Adaptive Pre-specification.\nNakato and Balzer (2026) — the mediated Stage 1 estimator.\nBenitez et al. (2023) — comparator methods.",
+    "crumbs": [
+      "Team",
+      "Two-Stage TMLE",
+      "4. The method"
+    ]
+  },
+  {
+    "objectID": "00_instructors.html",
+    "href": "00_instructors.html",
+    "title": "Team",
+    "section": "",
+    "text": "Note\n\n\n\nDraft scaffold. Replace placeholder bios with photos + 2-3 sentence descriptions sourced from team CVs."
+  },
+  {
+    "objectID": "00_instructors.html#investigators",
+    "href": "00_instructors.html#investigators",
+    "title": "Team",
+    "section": "Investigators",
+    "text": "Investigators\n\nLaura B. Balzer — PI\nAssociate Professor of Biostatistics, University of California, Berkeley. Developed Two-Stage TMLE and Adaptive Pre-specification; co-led the SEARCH consortium analyses showing TMLE’s gains over standard CRT methods. 2014 Causality in Statistics Education Award.\n\n\nMark van der Laan — Co-Investigator\nProfessor of Biostatistics, University of California, Berkeley. Inventor of TMLE, Super Learner, and several multiple-testing procedures; author of Targeted Learning (Springer, 2011).\n\n\nJoshua Schwab — Statistical programmer\nMaintainer of the TwoStageTMLE R package."
+  },
+  {
+    "objectID": "00_instructors.html#scientific-advisory-board",
+    "href": "00_instructors.html#scientific-advisory-board",
+    "title": "Team",
+    "section": "Scientific Advisory Board",
+    "text": "Scientific Advisory Board\n\nGabriel Chamie — UCSF, Protocol Vice-Chair of SAPPHIRE\nJane Kabami — Infectious Diseases Research Collaboration, Uganda; MPI of Peer-led DCP\nJames Ayieko — Kenya Medical Research Institute"
+  },
+  {
+    "objectID": "00_instructors.html#external-review-board",
+    "href": "00_instructors.html#external-review-board",
+    "title": "Team",
+    "section": "External Review Board",
+    "text": "External Review Board\nFour internationally-recognized CRT methodologists provide ≥1×/year feedback on dissemination materials:\n\nElizabeth Turner — Duke University\nAndrew Forbes — Monash University\nKarla Hemming — University of Birmingham\nMonica Taljaard — University of Ottawa"
+  },
+  {
+    "objectID": "00_instructors.html#contributing",
+    "href": "00_instructors.html#contributing",
+    "title": "Team",
+    "section": "Contributing",
+    "text": "Contributing\nSuggestions, corrections, and feedback are welcome — open an issue at https://github.com/LauraBalzer/TwoStageTMLE/issues."
+  },
+  {
+    "objectID": "01_info_why_crts.html",
+    "href": "01_info_why_crts.html",
+    "title": "1. Why CRTs?",
+    "section": "",
+    "text": "Note\n\n\n\nDraft scaffold. Body needs: (1) ~3 paragraphs framing CRTs vs individually-randomized trials, (2) the HIV prevention motivation (Balzer et al. 2021), (3) brief stats — 700+ active NIH CRTs, 80+ HIV-prevention CRTs, (4) embedded short video (~2 min) from the SAB on why this matters, (5) a “further reading” Resources panel matching the NIH Collaboratory Living Textbook look.",
+    "crumbs": [
+      "Team",
+      "Foundations",
+      "1. Why CRTs?"
+    ]
+  },
+  {
+    "objectID": "01_info_why_crts.html#when-you-need-a-crt",
+    "href": "01_info_why_crts.html#when-you-need-a-crt",
+    "title": "1. Why CRTs?",
+    "section": "When you need a CRT",
+    "text": "When you need a CRT\nSome interventions act at the group level — village health teams, clinic care-delivery models, public-health campaigns — and cannot be delivered to an individual in isolation. For these, the only valid randomized comparison randomizes groups. Examples:\n\nUniversal HIV test-and-treat (SEARCH): 32 communities in Kenya and Uganda randomized to a community-level prevention package vs. standard-of-care.\nDynamic Choice HIV Prevention (SAPPHIRE, Peer-led DCP): 16 and 14 communities respectively, offering choice-based PrEP/PEP delivery.\nIsoniazid preventive therapy (SEARCH-IPT): district-randomized trial to improve IPT uptake.\n\nCRTs preserve the rigor of randomization while letting researchers ask questions that map directly to how interventions are deployed in the real world (Balzer et al. 2021). They are increasingly the design of choice for translating efficacy into effectiveness.",
+    "crumbs": [
+      "Team",
+      "Foundations",
+      "1. Why CRTs?"
+    ]
+  },
+  {
+    "objectID": "01_info_why_crts.html#what-makes-crts-hard",
+    "href": "01_info_why_crts.html#what-makes-crts-hard",
+    "title": "1. Why CRTs?",
+    "section": "What makes CRTs hard",
+    "text": "What makes CRTs hard\nCompared to individually-randomized trials, CRTs face three persistent challenges:\n\nFew independent units\nMost CRTs randomize fewer than 40 clusters. With small numbers of independent units, the dependence among participants within a cluster sharply reduces the effective sample size, and standard inferential tools (mixed models, generalized estimating equations) tend to perform poorly with finite-sample corrections.\n\n\nMissing outcomes\nOne review found 93% of CRTs had missing outcomes. Naïve complete-case analyses are biased when participants with measured outcomes differ meaningfully from those with missed outcomes. The problem is worse when the missingness mechanism is itself influenced by the intervention — e.g., when the intervention’s first action is to extend screening.\n\n\nEffect heterogeneity\nFewer than 30% of CRTs assess effect heterogeneity, because practical guidance on such analyses has been lacking (Balzer et al. 2021). Established subgroups (sex, age group, region) provide some insight, but miss the chance to identify multilevel factors that predict who benefits most.",
+    "crumbs": [
+      "Team",
+      "Foundations",
+      "1. Why CRTs?"
+    ]
+  },
+  {
+    "objectID": "01_info_why_crts.html#where-this-site-fits",
+    "href": "01_info_why_crts.html#where-this-site-fits",
+    "title": "1. Why CRTs?",
+    "section": "Where this site fits",
+    "text": "Where this site fits\nThe remaining chapters build a single coherent methodology that addresses all three challenges — anchored on the Causal Roadmap (Chapter 2) and implemented in the TwoStageTMLE R package.",
+    "crumbs": [
+      "Team",
+      "Foundations",
+      "1. Why CRTs?"
+    ]
+  },
+  {
+    "objectID": "01_info_why_crts.html#resources",
+    "href": "01_info_why_crts.html#resources",
+    "title": "1. Why CRTs?",
+    "section": "Resources",
+    "text": "Resources\n\n\n\n\n\n\nTip\n\n\n\nFurther reading\n\nDavid Murray’s NIH ODP online course on pragmatic and group-randomized trials (Murray 2020)\nThe NIH Collaboratory Rethinking Clinical Trials Living Textbook",
+    "crumbs": [
+      "Team",
+      "Foundations",
+      "1. Why CRTs?"
+    ]
+  },
+  {
+    "objectID": "02_info_roadmap.html",
+    "href": "02_info_roadmap.html",
+    "title": "2. The Causal Roadmap for CRTs",
+    "section": "",
+    "text": "Note\n\n\n\nDraft scaffold. Each Roadmap step below has a one-line placeholder. Year 1 deliverable: fill in steps 1–6 with the SAPPHIRE running example, mirroring Table 6 of the strategy doc. Year 2: embed the Shiny “Roadmap walker” as an iframe at the bottom of this page.",
+    "crumbs": [
+      "Team",
+      "Foundations",
+      "2. The Causal Roadmap for CRTs"
+    ]
+  },
+  {
+    "objectID": "02_info_roadmap.html#the-8-step-roadmap",
+    "href": "02_info_roadmap.html#the-8-step-roadmap",
+    "title": "2. The Causal Roadmap for CRTs",
+    "section": "The 8-step roadmap",
+    "text": "The 8-step roadmap\nThe Causal Roadmap (Petersen and van der Laan 2014) is a step-by-step framework that takes you from a substantive research question to a defensible statistical analysis. Every chapter on this site is keyed to one or more of these steps.\n\nStep 1 — State the research question\nThe target population, the trial arms, the outcome, and the time horizon.\nRunning example: “What would be the difference in PrEP initiation within X-weeks if all persons with HIV risk received the intervention vs. the standard-of-care?”\n\n\nStep 2 — Specify the causal model\nA hierarchical (multilevel) causal model that names the variables, their temporal order, and the assumed independencies. For our setup: E^c → W → L → M → Y1* → Y2, with the cluster-level intervention A^c affecting L, M, Y2 directly.\n\n\nStep 3 — Define the causal effect via counterfactuals\n\\(\\Psi^* = \\mathbb{E}^*[Y^c(1) - Y^c(0)]\\) where \\(Y^c(a^c) = \\mathbb{P}^*[Y_2(a^c) = 1 \\mid Y_1^*(a^c) = 1]\\) — the counterfactual probability of starting PrEP among persons with HIV risk under trial arm \\(a^c\\).\n\n\nStep 4 — Specify the observed data\n\\(O^c = (E^c, A^c, W, L, M, Y_1, Y_2)\\) per cluster; one row per individual nested within cluster.\n\n\nStep 5 — Assess identifiability\nTranslate the causal estimand into a statistical one — and critically evaluate the assumptions that licence the translation. In our example: PrEP uptake is completely ascertained, and the screened are representative of the unscreened conditional on \\((W, L)\\).\n\n\nStep 6 — Specify the statistical estimand\nPer [Box 1 of the strategy doc]: at the cluster level, \\[\nY^c \\;=\\; \\frac{\\mathbb{P}(Y_2 = 1)}{\\mathbb{E}\\!\\bigl[\\mathbb{P}(Y_1 = 1 \\mid M = 1, W, L)\\bigr]}.\n\\] The trial-level estimand is then \\[\n\\Psi \\;=\\; \\mathbb{E}\\bigl[\\mathbb{E}(Y^c \\mid A^c = 1, E^c) - \\mathbb{E}(Y^c \\mid A^c = 0, E^c)\\bigr].\n\\]\n\n\nStep 7 — Statistical estimation and inference\nTwo-Stage TMLE. See Chapter 4 for the conceptual basis and Chapter 5 for the code.\n\n\nStep 8 — Interpret\nTranslate the statistical estimate back into the language of the research question, attending to any identification assumptions that may be challenged.",
+    "crumbs": [
+      "Team",
+      "Foundations",
+      "2. The Causal Roadmap for CRTs"
+    ]
+  },
+  {
+    "objectID": "02_info_roadmap.html#where-you-are-on-the-roadmap",
+    "href": "02_info_roadmap.html#where-you-are-on-the-roadmap",
+    "title": "2. The Causal Roadmap for CRTs",
+    "section": "Where you are on the roadmap",
+    "text": "Where you are on the roadmap\nMost of this site lives in Steps 6–7 — the statistical layer. But the guarantees of Two-Stage TMLE depend on the work you do in Steps 1–5, which is why we’ll keep linking back here as we go.",
+    "crumbs": [
+      "Team",
+      "Foundations",
+      "2. The Causal Roadmap for CRTs"
+    ]
+  },
+  {
+    "objectID": "02_info_roadmap.html#resources",
+    "href": "02_info_roadmap.html#resources",
+    "title": "2. The Causal Roadmap for CRTs",
+    "section": "Resources",
+    "text": "Resources\n\n\n\n\n\n\nTip\n\n\n\nFurther reading\n\nPetersen & van der Laan (2014), Causal Models and Learning from Data (Petersen and van der Laan 2014).\nChapter 1 of Targeted Learning (van der Laan and Rose 2011).",
+    "crumbs": [
+      "Team",
+      "Foundations",
+      "2. The Causal Roadmap for CRTs"
+    ]
+  },
+  {
+    "objectID": "11_info_conclusion.html",
+    "href": "11_info_conclusion.html",
+    "title": "7. Final remarks",
+    "section": "",
+    "text": "Note\n\n\n\nDraft scaffold. Final paragraph should pull together the three R01 aims into a coherent dissemination message. Add a “what’s next” call to action and the support-email alias once one exists.",
+    "crumbs": [
+      "Team",
+      "7. Final remarks"
+    ]
+  },
+  {
+    "objectID": "11_info_conclusion.html#what-you-have-now",
+    "href": "11_info_conclusion.html#what-you-have-now",
+    "title": "7. Final remarks",
+    "section": "What you have now",
+    "text": "What you have now\nYou have read about — and can run — Two-Stage TMLE in two settings:\n\nFoundational (Chapter 5) — missing outcomes in a CRT.\nMediated (Chapter 6) — the multilevel- mediation-missing data problem when screening sits on the causal path.\n\nBoth share the same Stage 2: a cluster-level TMLE with Adaptive Pre-specification, robust and efficient with few independent units.",
+    "crumbs": [
+      "Team",
+      "7. Final remarks"
+    ]
+  },
+  {
+    "objectID": "11_info_conclusion.html#whats-coming",
+    "href": "11_info_conclusion.html#whats-coming",
+    "title": "7. Final remarks",
+    "section": "What’s coming",
+    "text": "What’s coming\n\nYear 2 — Effect heterogeneity (Aim 1B)\nA new chapter on data-driven identification and evaluation of effect modifiers, using cross-validated cluster-level CATE TMLE and the step-down maxT multiple-testing procedure.\n\n\nYear 2 — The Roadmap Shiny walker\nA point-and-click web app, embedded right inside this site, that walks you through Causal Roadmap steps 1–6 and emits a fully-annotated R Markdown analysis file you can knit.\n\n\nYear 3 — SAPPHIRE worked example (Aim 2)\nA real-data worked example on the SAPPHIRE trial — 16 communities, ~80 000 men and women in rural Kenya and Uganda — showing how Two-Stage TMLE refines the primary effectiveness analysis of a dynamic-choice HIV prevention strategy.\n\n\nYear 4 — Peer-led DCP worked example (Aim 2)\nA second real-data worked example on the Peer-led DCP trial — 14 clinic catchment areas, ~560 women working in bars and guesthouses in southwestern Uganda — showing the same methodology in a new implementation context.\n\n\nYear 5 — Refinements\nFinal external review board feedback, long-tail FAQ, and an archival snapshot deposited at Zenodo for long-term reproducibility.",
+    "crumbs": [
+      "Team",
+      "7. Final remarks"
+    ]
+  },
+  {
+    "objectID": "11_info_conclusion.html#get-involved",
+    "href": "11_info_conclusion.html#get-involved",
+    "title": "7. Final remarks",
+    "section": "Get involved",
+    "text": "Get involved\nThe methods, the code, and this site are all open. Contributions and critiques are welcome:\n\nCode or method issue? Open a ticket at https://github.com/LauraBalzer/TwoStageTMLE/issues.\nSuggestion for the site? Open a PR or an issue at the site’s repo.\nQuestion that doesn’t fit either? [Support email — TBD].",
+    "crumbs": [
+      "Team",
+      "7. Final remarks"
+    ]
+  },
+  {
+    "objectID": "11_info_conclusion.html#citation",
+    "href": "11_info_conclusion.html#citation",
+    "title": "7. Final remarks",
+    "section": "Citation",
+    "text": "Citation\nIf you use the methods or code in your work, please cite:\n\nBalzer L.B., van der Laan M., Ayieko J., Kamya M., Chamie G., Schwab J., Havlir D., Petersen M. (2021). Two-Stage TMLE to Reduce Bias and Improve Efficiency in Cluster Randomized Trials. arXiv:2106.15737.\n\nFor the mediated Stage 1 estimator:\n\nNakato J., Balzer L.B. (2026). Methods for evaluating overall effectiveness of cluster-level strategies aiming to improve reach and health outcomes. [arXiv: forthcoming.]",
+    "crumbs": [
+      "Team",
+      "7. Final remarks"
+    ]
+  },
+  {
+    "objectID": "11_info_conclusion.html#acknowledgements",
+    "href": "11_info_conclusion.html#acknowledgements",
+    "title": "7. Final remarks",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\nThis work is supported by the National Institutes of Health.",
+    "crumbs": [
+      "Team",
+      "7. Final remarks"
+    ]
+  }
+]

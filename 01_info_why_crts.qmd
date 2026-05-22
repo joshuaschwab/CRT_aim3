@@ -1,0 +1,83 @@
+---
+title: "1. Why CRTs?"
+date-modified: last-modified
+---
+
+::: {.callout-note .draft}
+**Draft scaffold.** Body needs:
+(1) ~3 paragraphs framing CRTs vs individually-randomized trials,
+(2) the HIV prevention motivation [@balzer2021twostage],
+(3) brief stats — 700+ active NIH CRTs, 80+ HIV-prevention CRTs,
+(4) embedded short video (~2 min) from the SAB on why this matters,
+(5) a "further reading" Resources panel matching the
+[NIH Collaboratory Living Textbook](https://rethinkingclinicaltrials.org/)
+look.
+:::
+
+## When you need a CRT
+
+Some interventions act at the **group level** — village health teams,
+clinic care-delivery models, public-health campaigns — and cannot be
+delivered to an individual in isolation. For these, the only valid
+randomized comparison randomizes *groups*. Examples:
+
+- **Universal HIV test-and-treat** (SEARCH): 32 communities in Kenya and
+  Uganda randomized to a community-level prevention package vs.
+  standard-of-care.
+- **Dynamic Choice HIV Prevention** (SAPPHIRE, Peer-led DCP): 16 and 14
+  communities respectively, offering choice-based PrEP/PEP delivery.
+- **Isoniazid preventive therapy** (SEARCH-IPT): district-randomized
+  trial to improve IPT uptake.
+
+CRTs preserve the rigor of randomization while letting researchers ask
+questions that map directly to **how interventions are deployed in the
+real world** [@balzer2021twostage]. They are increasingly the design of
+choice for translating efficacy into effectiveness.
+
+## What makes CRTs hard
+
+Compared to individually-randomized trials, CRTs face three persistent
+challenges:
+
+### Few independent units
+
+Most CRTs randomize **fewer than 40 clusters**. With small numbers of
+independent units, the dependence among participants within a cluster
+sharply *reduces the effective sample size*, and standard inferential
+tools (mixed models, generalized estimating equations) tend to perform
+poorly with finite-sample corrections.
+
+### Missing outcomes
+
+One review found **93% of CRTs had missing outcomes**. Naïve
+complete-case analyses are biased when participants with measured
+outcomes differ meaningfully from those with missed outcomes. The
+problem is worse when the missingness mechanism is *itself influenced
+by the intervention* — e.g., when the intervention's first action is to
+extend screening.
+
+### Effect heterogeneity
+
+Fewer than 30% of CRTs assess effect heterogeneity, because practical
+guidance on such analyses has been lacking
+[@balzer2021twostage]. Established subgroups (sex, age group, region)
+provide some insight, but miss the chance to identify multilevel factors
+that predict who benefits most.
+
+## Where this site fits
+
+The remaining chapters build a single coherent methodology that
+addresses all three challenges — anchored on the Causal Roadmap
+([Chapter 2](02_info_roadmap.qmd)) and implemented in the
+[`TwoStageTMLE`](https://github.com/LauraBalzer/TwoStageTMLE) R package.
+
+## Resources
+
+::: {.callout-tip}
+**Further reading**
+
+- David Murray's [NIH ODP online course on pragmatic and group-randomized
+  trials](https://prevention.nih.gov/education-training/pragmatic-and-group-randomized-trials-public-health-and-medicine) [@murray2020pragmatic]
+- The [NIH Collaboratory Rethinking Clinical Trials Living
+  Textbook](https://rethinkingclinicaltrials.org/)
+:::

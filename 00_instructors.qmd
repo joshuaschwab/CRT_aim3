@@ -1,0 +1,49 @@
+---
+title: "Team"
+date-modified: last-modified
+---
+
+::: {.callout-note .draft}
+**Draft scaffold.** Replace placeholder bios with photos + 2-3 sentence
+descriptions sourced from team CVs.
+:::
+
+## Investigators
+
+### Laura B. Balzer — PI
+
+Associate Professor of Biostatistics, University of California, Berkeley.
+Developed Two-Stage TMLE and Adaptive Pre-specification; co-led the
+SEARCH consortium analyses showing TMLE's gains over standard CRT
+methods. 2014 Causality in Statistics Education Award.
+
+### Mark van der Laan — Co-Investigator
+
+Professor of Biostatistics, University of California, Berkeley. Inventor
+of TMLE, Super Learner, and several multiple-testing procedures; author
+of *Targeted Learning* (Springer, 2011).
+
+### Joshua Schwab — Statistical programmer
+
+Maintainer of the `TwoStageTMLE` R package.
+
+## Scientific Advisory Board
+
+* **Gabriel Chamie** — UCSF, Protocol Vice-Chair of SAPPHIRE
+* **Jane Kabami** — Infectious Diseases Research Collaboration, Uganda; MPI of Peer-led DCP
+* **James Ayieko** — Kenya Medical Research Institute
+
+## External Review Board
+
+Four internationally-recognized CRT methodologists provide ≥1×/year
+feedback on dissemination materials:
+
+* **Elizabeth Turner** — Duke University
+* **Andrew Forbes** — Monash University
+* **Karla Hemming** — University of Birmingham
+* **Monica Taljaard** — University of Ottawa
+
+## Contributing
+
+Suggestions, corrections, and feedback are welcome — open an issue at
+<https://github.com/LauraBalzer/TwoStageTMLE/issues>.

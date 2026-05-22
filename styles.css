@@ -1,0 +1,37 @@
+/* Working-draft styles — start minimal, refine after ERB review. */
+
+/* Tighter sidebar headings, more breathing room in body */
+.sidebar-section {
+  margin-top: 0.5rem;
+}
+
+.quarto-title-block .quarto-title .title {
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+/* Distinct treatment for the WIP banners used in stub chapters */
+.callout.callout-style-default.callout-note.draft {
+  border-left-color: #b94a48;
+}
+.callout.callout-style-default.callout-note.draft .callout-title {
+  color: #b94a48;
+}
+
+/* Slightly larger code blocks */
+pre code {
+  font-size: 0.9em;
+}
+
+/* Roadmap step boxes (used in chapter 2) */
+.roadmap-step {
+  border-left: 4px solid #4078c0;
+  padding: 0.5rem 1rem;
+  margin: 0.75rem 0;
+  background: #f6f8fa;
+  border-radius: 4px;
+}
+.roadmap-step h4 {
+  margin-top: 0;
+  color: #4078c0;
+}
