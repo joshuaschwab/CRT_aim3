@@ -4,6 +4,7 @@ date-modified: last-modified
 ---
 
 ::: {.callout-note .draft}
+**DISCLAIMER: This page is under construction**  
 **Draft scaffold.** This site is under active development. Year-1 content
 covers Foundations (chapters 1–4) and two hands-on chapters that drive the
 [`TwoStageTMLE`](https://github.com/LauraBalzer/TwoStageTMLE) R package

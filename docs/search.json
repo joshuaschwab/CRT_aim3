@@ -256,7 +256,7 @@
     "href": "index.html",
     "title": "Cluster Randomized Trials: Methods for Reach and Impact",
     "section": "",
-    "text": "Note\n\n\n\nDraft scaffold. This site is under active development. Year-1 content covers Foundations (chapters 1–4) and two hands-on chapters that drive the TwoStageTMLE R package end-to-end. Effect heterogeneity, the Roadmap walker Shiny app, and the SAPPHIRE / Peer-led DCP worked examples will land in Years 2–4.",
+    "text": "Note\n\n\n\nDISCLAIMER: This page is under construction\nDraft scaffold. This site is under active development. Year-1 content covers Foundations (chapters 1–4) and two hands-on chapters that drive the TwoStageTMLE R package end-to-end. Effect heterogeneity, the Roadmap walker Shiny app, and the SAPPHIRE / Peer-led DCP worked examples will land in Years 2–4.",
     "crumbs": [
       "Team",
       "Welcome"
