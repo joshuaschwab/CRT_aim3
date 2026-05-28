@@ -2101,7 +2101,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">May 22, 2026</p>
+      <p class="date-modified">May 28, 2026</p>
     </div>
   </div>
     
@@ -2109,7 +2109,20 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   
 
 
-</header><div class="callout callout-style-default callout-tip callout-titled">
+</header><div class="draft callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>DISCLAIMER: This page is under construction</strong></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -2772,153 +2785,157 @@ Tip
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">":::</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep =</span> <span class="st">""</span>)</span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>**Live R in the browser.** This site uses <span class="co">[</span><span class="ot">webR</span><span class="co">](https://docs.r-wasm.org/webr/)</span>.</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>Chunks marked <span class="in">`{webr-r}`</span> are editable — change the code, click *Run*, see the</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>new output. No R install needed. (The cells that call <span class="in">`TwoStageTMLE`</span> directly</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>still render server-side until the package ships a WebAssembly binary; see</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>the README's roadmap.)</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>This chapter walks through the **foundational** Two-Stage TMLE pipeline</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">@balzer2021twostage</span><span class="co">]</span> on a simulated CRT with **missing outcomes**. We:</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Generate one trial — 30 clusters, 100–200 participants each, pair-matched.</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Run **Stage 1** within each cluster (TMLE for the cluster-specific mean</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>   outcome, adjusting for differential measurement).</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Run **Stage 2** at the cluster level with Adaptive Pre-specification.</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Report the point estimate, 95% CI, and inspect the chosen adjustment</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>   variable.</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="fu">## Generate one CRT</span></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="in">```{r generate}</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TwoStageTMLE)</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>::: {.callout-note .draft}</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>**DISCLAIMER: This page is under construction**  </span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>**Live R in the browser.** This site uses <span class="co">[</span><span class="ot">webR</span><span class="co">](https://docs.r-wasm.org/webr/)</span>.</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>Chunks marked <span class="in">`{webr-r}`</span> are editable — change the code, click *Run*, see the</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>new output. No R install needed. (The cells that call <span class="in">`TwoStageTMLE`</span> directly</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>still render server-side until the package ships a WebAssembly binary; see</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>the README's roadmap.)</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>This chapter walks through the **foundational** Two-Stage TMLE pipeline</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">@balzer2021twostage</span><span class="co">]</span> on a simulated CRT with **missing outcomes**. We:</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Generate one trial — 30 clusters, 100–200 participants each, pair-matched.</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Run **Stage 1** within each cluster (TMLE for the cluster-specific mean</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>   outcome, adjusting for differential measurement).</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Run **Stage 2** at the cluster level with Adaptive Pre-specification.</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Report the point estimate, 95% CI, and inspect the chosen adjustment</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>   variable.</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Generate one CRT</span></span>
 <span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>J  <span class="ot">&lt;-</span> <span class="dv">30</span></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>n  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">150</span>, <span class="dv">200</span>)</span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>X  <span class="ot">&lt;-</span> TwoStageTMLE<span class="sc">:::</span><span class="fu">gen_data_complex</span>(<span class="at">effect =</span> <span class="cn">TRUE</span>, <span class="at">n =</span> n, <span class="at">J =</span> J)</span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>O  <span class="ot">&lt;-</span> TwoStageTMLE<span class="sc">:::</span><span class="fu">get_obs</span>(X, <span class="at">exclude =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(O[, <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"pair"</span>, <span class="st">"A"</span>, <span class="st">"X1"</span>, <span class="st">"X2"</span>, <span class="st">"M"</span>, <span class="st">"Delta"</span>, <span class="st">"Y"</span>)])</span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="in">`Delta`</span> indicates outcome measurement (0 if missed); <span class="in">`Y`</span> is <span class="in">`NA`</span> where</span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="in">`Delta = 0`</span>. <span class="in">`X1`</span>, <span class="in">`X2`</span>, <span class="in">`M`</span> are individual covariates; <span class="in">`X1.c`</span>, <span class="in">`X2.c`</span></span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>are the cluster-level means.</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="in">```{r generate}</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TwoStageTMLE)</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>J  <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>n  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">150</span>, <span class="dv">200</span>)</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>X  <span class="ot">&lt;-</span> TwoStageTMLE<span class="sc">:::</span><span class="fu">gen_data_complex</span>(<span class="at">effect =</span> <span class="cn">TRUE</span>, <span class="at">n =</span> n, <span class="at">J =</span> J)</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>O  <span class="ot">&lt;-</span> TwoStageTMLE<span class="sc">:::</span><span class="fu">get_obs</span>(X, <span class="at">exclude =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(O[, <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"pair"</span>, <span class="st">"A"</span>, <span class="st">"X1"</span>, <span class="st">"X2"</span>, <span class="st">"M"</span>, <span class="st">"Delta"</span>, <span class="st">"Y"</span>)])</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>**Try it.** This cell runs **in your browser**. Tweak the parameters and</span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>see how the cluster-level summaries shift before any TMLE has been</span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>applied — useful intuition for why Stage 1 matters.</span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: explore-missingness-in-browser</span></span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a><span class="in">#| autorun: false</span></span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a><span class="in">library(data.table)</span></span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a><span class="in">set.seed(1)</span></span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a><span class="in"># Mini CRT: J clusters, n_per individuals per cluster.</span></span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a><span class="in">J &lt;- 10; n_per &lt;- 80</span></span>
-<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a><span class="in">dat &lt;- rbindlist(lapply(seq_len(J), function(j) {</span></span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a><span class="in">  W      &lt;- rnorm(n_per)</span></span>
-<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a><span class="in">  A      &lt;- rbinom(1, 1, 0.5)                            # cluster trt</span></span>
-<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a><span class="in">  pDelta &lt;- plogis(-0.3 + 0.7*A + 0.6*W)                 # measurement depends on W and A!</span></span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a><span class="in">  Delta  &lt;- rbinom(n_per, 1, pDelta)</span></span>
-<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a><span class="in">  Y      &lt;- rbinom(n_per, 1, plogis(-0.5 + 0.5*A + 0.8*W))</span></span>
-<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a><span class="in">  Y[Delta == 0] &lt;- NA_integer_</span></span>
-<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a><span class="in">  data.table(id = j, A = A, W = W, Delta = Delta, Y = Y)</span></span>
-<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a><span class="in">}))</span></span>
-<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a><span class="in"># Naive complete-case mean per cluster (biased) vs. an honest fraction-measured.</span></span>
-<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a><span class="in">dat[, .(meanY_naive = mean(Y, na.rm = TRUE),</span></span>
-<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a><span class="in">        pct_measured = mean(Delta)),</span></span>
-<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a><span class="in">    by = .(id, A)][order(A, id)]</span></span>
-<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stage 1 — within-cluster missing-data adjustment</span></span>
-<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a><span class="in">```{r stage1}</span></span>
-<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>stage1 <span class="ot">&lt;-</span> <span class="fu">stage1_tmle</span>(</span>
-<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>  <span class="at">data       =</span> O,</span>
-<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>  <span class="at">ind_cov    =</span> <span class="fu">c</span>(<span class="st">"X1"</span>, <span class="st">"X2"</span>, <span class="st">"M"</span>),</span>
-<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>  <span class="at">clust_cov  =</span> <span class="fu">c</span>(<span class="st">"X1.c"</span>, <span class="st">"X2.c"</span>),</span>
-<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>  <span class="at">sl_library =</span> <span class="fu">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glm"</span>, <span class="st">"SL.gam"</span>)</span>
-<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>stage1[, .(id, pair, A, X1.c, X2.c, unadj, tmle)]</span>
-<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a><span class="in">`unadj`</span> is the simple mean among the measured; <span class="in">`tmle`</span> is the cluster</span>
-<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>mean adjusted for differential measurement.</span>
-<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stage 2 — cluster-level TMLE + Adaptive Pre-specification</span></span>
-<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a><span class="in">```{r stage2}</span></span>
-<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">copy</span>(stage1)</span>
-<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>s2[, Y <span class="sc">:</span><span class="er">=</span> tmle]</span>
-<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">add_weights</span>(s2, <span class="at">target =</span> <span class="st">"clust"</span>)</span>
-<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>cand <span class="ot">&lt;-</span> <span class="fu">cand_adj</span>(<span class="fu">c</span>(<span class="st">"X1.c"</span>, <span class="st">"X2.c"</span>))</span>
-<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">stage2_tmle</span>(</span>
-<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>  <span class="at">data          =</span> s2,</span>
-<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>  <span class="at">goal          =</span> <span class="st">"RD"</span>,</span>
-<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>  <span class="at">target        =</span> <span class="st">"clust"</span>,</span>
-<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>  <span class="at">break_match   =</span> <span class="cn">FALSE</span>,           <span class="co"># preserve the matched pairs</span></span>
-<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>  <span class="at">do_data_adapt =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_q_adj    =</span> cand<span class="sc">$</span>cand_q_adj, <span class="at">cand_q_form =</span> cand<span class="sc">$</span>cand_q_form,</span>
-<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_g_adj    =</span> cand<span class="sc">$</span>cand_g_adj, <span class="at">cand_g_form =</span> cand<span class="sc">$</span>cand_g_form,</span>
-<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_pscore =</span> <span class="cn">TRUE</span></span>
-<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a>est[, .(est, ci_lo, ci_hi, se, pval, q_adj, g_adj)]</span>
-<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a><span class="fu">## What APS chose</span></span>
-<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a><span class="in">`q_adj`</span> and <span class="in">`g_adj`</span> index the candidate adjustment vector — <span class="in">`1 = "U"`</span></span>
-<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>(the unadjusted estimator), <span class="in">`2 = "X1.c"`</span>, <span class="in">`3 = "X2.c"`</span>. With small</span>
-<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a>clusters and well-balanced randomization, APS often picks the unadjusted</span>
-<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>estimator for the propensity score (because the trial-arm assignment is</span>
-<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>known to be 0.5) and the most-predictive covariate for the outcome.</span>
-<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a><span class="fu">## End-to-end driver</span></span>
-<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a><span class="in">```{r e2e, eval = FALSE}</span></span>
-<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">two_stage_tmle</span>(</span>
-<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>  <span class="at">data       =</span> O,</span>
-<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>  <span class="at">ind_cov    =</span> <span class="fu">c</span>(<span class="st">"X1"</span>, <span class="st">"X2"</span>, <span class="st">"M"</span>),</span>
-<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>  <span class="at">clust_cov  =</span> <span class="fu">c</span>(<span class="st">"X1.c"</span>, <span class="st">"X2.c"</span>),</span>
-<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>  <span class="at">goal       =</span> <span class="st">"RD"</span>, <span class="at">target =</span> <span class="st">"clust"</span>, <span class="at">break_match =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a>  <span class="at">do_data_adapt =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_q_adj =</span> cand<span class="sc">$</span>cand_q_adj, <span class="at">cand_q_form =</span> cand<span class="sc">$</span>cand_q_form,</span>
-<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_g_adj =</span> cand<span class="sc">$</span>cand_g_adj, <span class="at">cand_g_form =</span> cand<span class="sc">$</span>cand_g_form,</span>
-<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_pscore =</span> <span class="cn">TRUE</span></span>
-<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>est        <span class="co"># the Stage 2 estimate</span></span>
-<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>stage1     <span class="co"># the cluster-level table from Stage 1</span></span>
-<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a><span class="fu">## Where to go next</span></span>
-<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Chapter 6</span><span class="co">](06_R_mediated.qmd)</span> — when the missing variable is</span>
-<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a>  *eligibility* (mediated by screening), not the outcome.</span>
-<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The package vignette <span class="in">`vignette("reproduce-paper")`</span> walks through the</span>
-<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a>  full simulation grid of @balzer2021twostage.</span>
-<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a><span class="fu">## Resources</span></span>
-<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a>**Reference cards**</span>
-<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`stage1_tmle()`</span> documentation: <span class="in">`?TwoStageTMLE::stage1_tmle`</span></span>
-<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`stage2_tmle()`</span> documentation: <span class="in">`?TwoStageTMLE::stage2_tmle`</span></span>
-<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`cand_adj()`</span> documentation: <span class="in">`?TwoStageTMLE::cand_adj`</span></span>
-<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a><span class="in">`Delta`</span> indicates outcome measurement (0 if missed); <span class="in">`Y`</span> is <span class="in">`NA`</span> where</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a><span class="in">`Delta = 0`</span>. <span class="in">`X1`</span>, <span class="in">`X2`</span>, <span class="in">`M`</span> are individual covariates; <span class="in">`X1.c`</span>, <span class="in">`X2.c`</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>are the cluster-level means.</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>**Try it.** This cell runs **in your browser**. Tweak the parameters and</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>see how the cluster-level summaries shift before any TMLE has been</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>applied — useful intuition for why Stage 1 matters.</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: explore-missingness-in-browser</span></span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a><span class="in">#| autorun: false</span></span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a><span class="in">library(data.table)</span></span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a><span class="in">set.seed(1)</span></span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a><span class="in"># Mini CRT: J clusters, n_per individuals per cluster.</span></span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a><span class="in">J &lt;- 10; n_per &lt;- 80</span></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a><span class="in">dat &lt;- rbindlist(lapply(seq_len(J), function(j) {</span></span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a><span class="in">  W      &lt;- rnorm(n_per)</span></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a><span class="in">  A      &lt;- rbinom(1, 1, 0.5)                            # cluster trt</span></span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a><span class="in">  pDelta &lt;- plogis(-0.3 + 0.7*A + 0.6*W)                 # measurement depends on W and A!</span></span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a><span class="in">  Delta  &lt;- rbinom(n_per, 1, pDelta)</span></span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a><span class="in">  Y      &lt;- rbinom(n_per, 1, plogis(-0.5 + 0.5*A + 0.8*W))</span></span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a><span class="in">  Y[Delta == 0] &lt;- NA_integer_</span></span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a><span class="in">  data.table(id = j, A = A, W = W, Delta = Delta, Y = Y)</span></span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a><span class="in">}))</span></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a><span class="in"># Naive complete-case mean per cluster (biased) vs. an honest fraction-measured.</span></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a><span class="in">dat[, .(meanY_naive = mean(Y, na.rm = TRUE),</span></span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a><span class="in">        pct_measured = mean(Delta)),</span></span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a><span class="in">    by = .(id, A)][order(A, id)]</span></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stage 1 — within-cluster missing-data adjustment</span></span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a><span class="in">```{r stage1}</span></span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>stage1 <span class="ot">&lt;-</span> <span class="fu">stage1_tmle</span>(</span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>  <span class="at">data       =</span> O,</span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>  <span class="at">ind_cov    =</span> <span class="fu">c</span>(<span class="st">"X1"</span>, <span class="st">"X2"</span>, <span class="st">"M"</span>),</span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>  <span class="at">clust_cov  =</span> <span class="fu">c</span>(<span class="st">"X1.c"</span>, <span class="st">"X2.c"</span>),</span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>  <span class="at">sl_library =</span> <span class="fu">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glm"</span>, <span class="st">"SL.gam"</span>)</span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>stage1[, .(id, pair, A, X1.c, X2.c, unadj, tmle)]</span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a><span class="in">`unadj`</span> is the simple mean among the measured; <span class="in">`tmle`</span> is the cluster</span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>mean adjusted for differential measurement.</span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stage 2 — cluster-level TMLE + Adaptive Pre-specification</span></span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a><span class="in">```{r stage2}</span></span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">copy</span>(stage1)</span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>s2[, Y <span class="sc">:</span><span class="er">=</span> tmle]</span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">add_weights</span>(s2, <span class="at">target =</span> <span class="st">"clust"</span>)</span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>cand <span class="ot">&lt;-</span> <span class="fu">cand_adj</span>(<span class="fu">c</span>(<span class="st">"X1.c"</span>, <span class="st">"X2.c"</span>))</span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">stage2_tmle</span>(</span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>  <span class="at">data          =</span> s2,</span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>  <span class="at">goal          =</span> <span class="st">"RD"</span>,</span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>  <span class="at">target        =</span> <span class="st">"clust"</span>,</span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>  <span class="at">break_match   =</span> <span class="cn">FALSE</span>,           <span class="co"># preserve the matched pairs</span></span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>  <span class="at">do_data_adapt =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_q_adj    =</span> cand<span class="sc">$</span>cand_q_adj, <span class="at">cand_q_form =</span> cand<span class="sc">$</span>cand_q_form,</span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_g_adj    =</span> cand<span class="sc">$</span>cand_g_adj, <span class="at">cand_g_form =</span> cand<span class="sc">$</span>cand_g_form,</span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_pscore =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>est[, .(est, ci_lo, ci_hi, se, pval, q_adj, g_adj)]</span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a><span class="fu">## What APS chose</span></span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a><span class="in">`q_adj`</span> and <span class="in">`g_adj`</span> index the candidate adjustment vector — <span class="in">`1 = "U"`</span></span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>(the unadjusted estimator), <span class="in">`2 = "X1.c"`</span>, <span class="in">`3 = "X2.c"`</span>. With small</span>
+<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a>clusters and well-balanced randomization, APS often picks the unadjusted</span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>estimator for the propensity score (because the trial-arm assignment is</span>
+<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>known to be 0.5) and the most-predictive covariate for the outcome.</span>
+<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a><span class="fu">## End-to-end driver</span></span>
+<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r e2e, eval = FALSE}</span></span>
+<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">two_stage_tmle</span>(</span>
+<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a>  <span class="at">data       =</span> O,</span>
+<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>  <span class="at">ind_cov    =</span> <span class="fu">c</span>(<span class="st">"X1"</span>, <span class="st">"X2"</span>, <span class="st">"M"</span>),</span>
+<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>  <span class="at">clust_cov  =</span> <span class="fu">c</span>(<span class="st">"X1.c"</span>, <span class="st">"X2.c"</span>),</span>
+<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a>  <span class="at">goal       =</span> <span class="st">"RD"</span>, <span class="at">target =</span> <span class="st">"clust"</span>, <span class="at">break_match =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a>  <span class="at">do_data_adapt =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_q_adj =</span> cand<span class="sc">$</span>cand_q_adj, <span class="at">cand_q_form =</span> cand<span class="sc">$</span>cand_q_form,</span>
+<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_g_adj =</span> cand<span class="sc">$</span>cand_g_adj, <span class="at">cand_g_form =</span> cand<span class="sc">$</span>cand_g_form,</span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_pscore =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>est        <span class="co"># the Stage 2 estimate</span></span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>stage1     <span class="co"># the cluster-level table from Stage 1</span></span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a><span class="fu">## Where to go next</span></span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Chapter 6</span><span class="co">](06_R_mediated.qmd)</span> — when the missing variable is</span>
+<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a>  *eligibility* (mediated by screening), not the outcome.</span>
+<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The package vignette <span class="in">`vignette("reproduce-paper")`</span> walks through the</span>
+<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a>  full simulation grid of @balzer2021twostage.</span>
+<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a><span class="fu">## Resources</span></span>
+<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a>**Reference cards**</span>
+<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`stage1_tmle()`</span> documentation: <span class="in">`?TwoStageTMLE::stage1_tmle`</span></span>
+<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`stage2_tmle()`</span> documentation: <span class="in">`?TwoStageTMLE::stage2_tmle`</span></span>
+<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`cand_adj()`</span> documentation: <span class="in">`?TwoStageTMLE::cand_adj`</span></span>
+<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <script type="module">

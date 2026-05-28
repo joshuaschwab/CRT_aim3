@@ -300,7 +300,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">May 22, 2026</p>
+      <p class="date-modified">May 28, 2026</p>
     </div>
   </div>
     
@@ -308,7 +308,20 @@ window.Quarto = {
   
 
 
-</header><p>This chapter walks through the <strong>mediated</strong> Stage 1 estimator <span class="citation" data-cites="nakato2026mediated">(<a href="#ref-nakato2026mediated" role="doc-biblioref">Nakato and Balzer 2026</a>)</span> on a simulated CRT where:</p>
+</header><div class="draft callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>DISCLAIMER: This page is under construction</strong></p>
+</div>
+</div>
+<p>This chapter walks through the <strong>mediated</strong> Stage 1 estimator <span class="citation" data-cites="nakato2026mediated">(<a href="#ref-nakato2026mediated" role="doc-biblioref">Nakato and Balzer 2026</a>)</span> on a simulated CRT where:</p>
 <ul>
 <li>The intervention <span class="math inline">\(A\)</span> aims to expand both <strong>risk screening</strong> and <strong>uptake of biomedical prevention</strong>.</li>
 <li>The eligibility variable <span class="math inline">\(Y_1^*\)</span> (e.g., true HIV risk status) is observed <em>only when screened</em> (when <span class="math inline">\(M = 1\)</span>).</li>
@@ -1029,164 +1042,168 @@ Nakato, Joy, and Laura B Balzer. 2026. <span>“Methods for Evaluating Overall E
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">":::</span><span class="sc">\n</span><span class="st">"</span>, <span class="at">sep =</span> <span class="st">""</span>)</span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>This chapter walks through the **mediated** Stage 1 estimator</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">@nakato2026mediated</span><span class="co">]</span> on a simulated CRT where:</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The intervention $A$ aims to expand both **risk screening** and **uptake</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  of biomedical prevention**.</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The eligibility variable $Y_1^*$ (e.g., true HIV risk status) is</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  observed *only when screened* (when $M = 1$).</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The outcome $Y_2$ (e.g., PrEP uptake) is fully observed (e.g., clinical</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  records).</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>The cluster-level endpoint is the **ratio**:</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>Y^c \;=\; \frac{\mathbb{P}(Y_2 = 1)}{\mathbb{E}<span class="sc">\!</span>\bigl<span class="co">[</span><span class="ot">\mathbb{P}(Y_1 = 1 \mid M = 1, W)\bigr</span><span class="co">]</span>}.</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>::: {.callout-note .draft}</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>**DISCLAIMER: This page is under construction**  </span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>This chapter walks through the **mediated** Stage 1 estimator</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">@nakato2026mediated</span><span class="co">]</span> on a simulated CRT where:</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The intervention $A$ aims to expand both **risk screening** and **uptake</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  of biomedical prevention**.</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The eligibility variable $Y_1^*$ (e.g., true HIV risk status) is</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  observed *only when screened* (when $M = 1$).</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>The outcome $Y_2$ (e.g., PrEP uptake) is fully observed (e.g., clinical</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  records).</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>The cluster-level endpoint is the **ratio**:</span>
 <span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>Numerator: empirical proportion uptaking. Denominator: TMLE for the</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>prevalence of risk, fit within each cluster.</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## Generate one CRT</span></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>We use a condensed version of the Nakato (2026) DGP. The intervention</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>boosts screening; outcomes only happen among the screened-and-eligible.</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{r dgp}</span></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TwoStageTMLE)</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>Y^c \;=\; \frac{\mathbb{P}(Y_2 = 1)}{\mathbb{E}<span class="sc">\!</span>\bigl<span class="co">[</span><span class="ot">\mathbb{P}(Y_1 = 1 \mid M = 1, W)\bigr</span><span class="co">]</span>}.</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>Numerator: empirical proportion uptaking. Denominator: TMLE for the</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>prevalence of risk, fit within each cluster.</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Generate one CRT</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>We use a condensed version of the Nakato (2026) DGP. The intervention</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>boosts screening; outcomes only happen among the screened-and-eligible.</span>
 <span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>gen_cluster <span class="ot">&lt;-</span> <span class="cf">function</span>(N, j) {</span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>  UE1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">runif</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), N); UE2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">runif</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), N)</span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>  E1  <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(<span class="dv">1</span>, UE1[<span class="dv">1</span>], <span class="fl">0.5</span>), N); E2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(<span class="dv">1</span>, UE2[<span class="dv">1</span>], <span class="fl">0.5</span>), N)</span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>  W1  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N, <span class="dv">0</span>, <span class="fl">0.5</span>); W2  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N, <span class="dv">0</span>, <span class="fl">0.5</span>); W3 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(N, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>  pY1 <span class="ot">&lt;-</span> <span class="fu">plogis</span>(<span class="fl">0.5</span> <span class="sc">+</span> W1 <span class="sc">+</span> W2 <span class="sc">-</span> W3 <span class="sc">+</span> <span class="fl">0.25</span><span class="sc">*</span>E1 <span class="sc">+</span> <span class="fl">0.25</span><span class="sc">*</span>E2)</span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.table</span>(</span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> j, <span class="at">E1 =</span> E1, <span class="at">E2 =</span> E2, <span class="at">W1 =</span> W1, <span class="at">W2 =</span> W2, <span class="at">W3 =</span> W3,</span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">UE1 =</span> UE1, <span class="at">UE2 =</span> UE2, <span class="at">Y1_star =</span> <span class="fu">as.integer</span>(<span class="fu">runif</span>(N) <span class="sc">&lt;</span> pY1)</span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>J <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">rbindlist</span>(<span class="fu">lapply</span>(<span class="fu">seq_len</span>(J), <span class="cf">function</span>(j) <span class="fu">gen_cluster</span>(<span class="dv">120</span>, j)))</span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>A_per <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>L, J<span class="sc">/</span><span class="dv">2</span>), <span class="fu">rep</span>(<span class="dv">0</span>L, J<span class="sc">/</span><span class="dv">2</span>)))</span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>dat[, A <span class="sc">:</span><span class="er">=</span> A_per[id]]</span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>pM <span class="ot">&lt;-</span> <span class="fu">plogis</span>(<span class="sc">-</span><span class="fl">0.5</span> <span class="sc">+</span> <span class="fl">0.6</span><span class="sc">*</span>dat<span class="sc">$</span>A <span class="sc">+</span> <span class="fl">0.5</span><span class="sc">*</span>dat<span class="sc">$</span>W1 <span class="sc">+</span> <span class="fl">0.4</span><span class="sc">*</span>dat<span class="sc">$</span>W2 <span class="sc">-</span></span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>              <span class="fl">0.4</span><span class="sc">*</span>dat<span class="sc">$</span>A<span class="sc">*</span>dat<span class="sc">$</span>W3 <span class="sc">+</span> <span class="fl">0.4</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>dat<span class="sc">$</span>A)<span class="sc">*</span>dat<span class="sc">$</span>W3 <span class="sc">+</span></span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>              <span class="fl">0.1</span><span class="sc">*</span>dat<span class="sc">$</span>UE1 <span class="sc">+</span> <span class="fl">0.1</span><span class="sc">*</span>dat<span class="sc">$</span>UE2)</span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>dat[, M  <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(<span class="fu">runif</span>(.N) <span class="sc">&lt;</span> pM)]</span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>dat[, Y1 <span class="sc">:</span><span class="er">=</span> Y1_star <span class="sc">*</span> M]</span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>pY2 <span class="ot">&lt;-</span> <span class="fu">plogis</span>(<span class="fl">0.2</span> <span class="sc">+</span> <span class="fl">0.1</span><span class="sc">*</span>dat<span class="sc">$</span>A <span class="sc">+</span> dat<span class="sc">$</span>W1 <span class="sc">+</span> <span class="fl">0.5</span><span class="sc">*</span>dat<span class="sc">$</span>W2 <span class="sc">+</span></span>
-<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>              <span class="dv">2</span><span class="sc">*</span>dat<span class="sc">$</span>W3 <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>dat<span class="sc">$</span>E1 <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>dat<span class="sc">$</span>E2)</span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>dat[, Y2 <span class="sc">:</span><span class="er">=</span> <span class="fu">ifelse</span>(Y1_star <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> M <span class="sc">==</span> <span class="dv">1</span>,</span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">as.integer</span>(<span class="fu">runif</span>(.N) <span class="sc">&lt;</span> pY2),</span>
-<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>                   <span class="dv">0</span>L)]</span>
-<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>dat[, <span class="fu">c</span>(<span class="st">"UE1"</span>, <span class="st">"UE2"</span>, <span class="st">"Y1_star"</span>) <span class="sc">:</span><span class="er">=</span> <span class="cn">NULL</span>]</span>
-<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat[, .(id, A, W1, W2, W3, E1, E2, M, Y1, Y2)])</span>
-<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="in">```{r dgp}</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TwoStageTMLE)</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>gen_cluster <span class="ot">&lt;-</span> <span class="cf">function</span>(N, j) {</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>  UE1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">runif</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), N); UE2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">runif</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), N)</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>  E1  <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(<span class="dv">1</span>, UE1[<span class="dv">1</span>], <span class="fl">0.5</span>), N); E2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(<span class="dv">1</span>, UE2[<span class="dv">1</span>], <span class="fl">0.5</span>), N)</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>  W1  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N, <span class="dv">0</span>, <span class="fl">0.5</span>); W2  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N, <span class="dv">0</span>, <span class="fl">0.5</span>); W3 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(N, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>  pY1 <span class="ot">&lt;-</span> <span class="fu">plogis</span>(<span class="fl">0.5</span> <span class="sc">+</span> W1 <span class="sc">+</span> W2 <span class="sc">-</span> W3 <span class="sc">+</span> <span class="fl">0.25</span><span class="sc">*</span>E1 <span class="sc">+</span> <span class="fl">0.25</span><span class="sc">*</span>E2)</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.table</span>(</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> j, <span class="at">E1 =</span> E1, <span class="at">E2 =</span> E2, <span class="at">W1 =</span> W1, <span class="at">W2 =</span> W2, <span class="at">W3 =</span> W3,</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">UE1 =</span> UE1, <span class="at">UE2 =</span> UE2, <span class="at">Y1_star =</span> <span class="fu">as.integer</span>(<span class="fu">runif</span>(N) <span class="sc">&lt;</span> pY1)</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>J <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">rbindlist</span>(<span class="fu">lapply</span>(<span class="fu">seq_len</span>(J), <span class="cf">function</span>(j) <span class="fu">gen_cluster</span>(<span class="dv">120</span>, j)))</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>A_per <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>L, J<span class="sc">/</span><span class="dv">2</span>), <span class="fu">rep</span>(<span class="dv">0</span>L, J<span class="sc">/</span><span class="dv">2</span>)))</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>dat[, A <span class="sc">:</span><span class="er">=</span> A_per[id]]</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>pM <span class="ot">&lt;-</span> <span class="fu">plogis</span>(<span class="sc">-</span><span class="fl">0.5</span> <span class="sc">+</span> <span class="fl">0.6</span><span class="sc">*</span>dat<span class="sc">$</span>A <span class="sc">+</span> <span class="fl">0.5</span><span class="sc">*</span>dat<span class="sc">$</span>W1 <span class="sc">+</span> <span class="fl">0.4</span><span class="sc">*</span>dat<span class="sc">$</span>W2 <span class="sc">-</span></span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>              <span class="fl">0.4</span><span class="sc">*</span>dat<span class="sc">$</span>A<span class="sc">*</span>dat<span class="sc">$</span>W3 <span class="sc">+</span> <span class="fl">0.4</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>dat<span class="sc">$</span>A)<span class="sc">*</span>dat<span class="sc">$</span>W3 <span class="sc">+</span></span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>              <span class="fl">0.1</span><span class="sc">*</span>dat<span class="sc">$</span>UE1 <span class="sc">+</span> <span class="fl">0.1</span><span class="sc">*</span>dat<span class="sc">$</span>UE2)</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>dat[, M  <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(<span class="fu">runif</span>(.N) <span class="sc">&lt;</span> pM)]</span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>dat[, Y1 <span class="sc">:</span><span class="er">=</span> Y1_star <span class="sc">*</span> M]</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>pY2 <span class="ot">&lt;-</span> <span class="fu">plogis</span>(<span class="fl">0.2</span> <span class="sc">+</span> <span class="fl">0.1</span><span class="sc">*</span>dat<span class="sc">$</span>A <span class="sc">+</span> dat<span class="sc">$</span>W1 <span class="sc">+</span> <span class="fl">0.5</span><span class="sc">*</span>dat<span class="sc">$</span>W2 <span class="sc">+</span></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>              <span class="dv">2</span><span class="sc">*</span>dat<span class="sc">$</span>W3 <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>dat<span class="sc">$</span>E1 <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span>dat<span class="sc">$</span>E2)</span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>dat[, Y2 <span class="sc">:</span><span class="er">=</span> <span class="fu">ifelse</span>(Y1_star <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> M <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">as.integer</span>(<span class="fu">runif</span>(.N) <span class="sc">&lt;</span> pY2),</span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>                   <span class="dv">0</span>L)]</span>
 <span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stage 1 — ratio endpoint per cluster</span></span>
-<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a><span class="in">```{r stage1}</span></span>
-<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">stage1_mediated</span>(</span>
-<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>  <span class="at">data       =</span> dat,</span>
-<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>  <span class="at">ind_cov    =</span> <span class="fu">c</span>(<span class="st">"W1"</span>, <span class="st">"W2"</span>, <span class="st">"W3"</span>),</span>
-<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>  <span class="at">clust_cov  =</span> <span class="fu">c</span>(<span class="st">"E1"</span>, <span class="st">"E2"</span>),</span>
-<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>  <span class="at">sl_library =</span> <span class="fu">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glm"</span>)</span>
-<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>s1[, .(id, A, E1, E2, screened, eligible, unadj, tmle)]</span>
-<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>Each row is one cluster. The four candidate endpoints:</span>
-<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Column     <span class="pp">|</span> Estimand                              <span class="pp">|</span> Bias               <span class="pp">|</span></span>
-<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a><span class="pp">|------------|---------------------------------------|--------------------|</span></span>
-<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`screened`</span> <span class="pp">|</span> $\mathbb{P}(Y_2 \mid M = 1)$                  <span class="pp">|</span> Biased (conditions on a post-treatment mediator) <span class="pp">|</span></span>
-<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`eligible`</span> <span class="pp">|</span> $\mathbb{P}(Y_2 \mid Y_1 = 1)$                <span class="pp">|</span> Biased (conditions on observed-eligible) <span class="pp">|</span></span>
-<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`unadj`</span>    <span class="pp">|</span> $\mathbb{P}(Y_2) / \mathbb{P}(Y_1 \mid M = 1)$        <span class="pp">|</span> Unadjusted denominator <span class="pp">|</span></span>
-<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **`tmle`** | $\mathbb{P}(Y_2) / \mathrm{TMLE}[\mathbb{P}(Y_1 \mid M = 1, W)]$ | **Recommended endpoint** <span class="pp">|</span></span>
-<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>The first two exist so you can see how conditioning the wrong way shifts</span>
-<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>the estimate; <span class="in">`tmle`</span> is what gets fed to Stage 2.</span>
-<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stage 2 — cluster-level TMLE on the ratio endpoint</span></span>
-<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>Stage 2 is *unchanged* from <span class="co">[</span><span class="ot">Chapter 5</span><span class="co">](05_R_foundational.qmd)</span> — the</span>
-<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>ratio endpoint slots into the same machinery:</span>
-<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a><span class="in">```{r stage2}</span></span>
-<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">copy</span>(s1)</span>
-<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>s2[, Y <span class="sc">:</span><span class="er">=</span> tmle]</span>
-<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">add_weights</span>(s2, <span class="at">target =</span> <span class="st">"clust"</span>)</span>
-<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>cand <span class="ot">&lt;-</span> <span class="fu">cand_adj</span>(<span class="fu">c</span>(<span class="st">"E1"</span>, <span class="st">"E2"</span>))</span>
-<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">stage2_tmle</span>(</span>
-<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>  <span class="at">data          =</span> s2,</span>
-<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>  <span class="at">goal          =</span> <span class="st">"RD"</span>,</span>
-<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>  <span class="at">target        =</span> <span class="st">"clust"</span>,</span>
-<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>  <span class="at">break_match   =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>  <span class="at">do_data_adapt =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_q_adj    =</span> cand<span class="sc">$</span>cand_q_adj, <span class="at">cand_q_form =</span> cand<span class="sc">$</span>cand_q_form,</span>
-<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_g_adj    =</span> cand<span class="sc">$</span>cand_g_adj, <span class="at">cand_g_form =</span> cand<span class="sc">$</span>cand_g_form,</span>
-<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_pscore =</span> <span class="cn">TRUE</span></span>
-<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>est[, .(est, ci_lo, ci_hi, se, pval, q_adj, g_adj)]</span>
-<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a><span class="fu">## End-to-end driver</span></span>
-<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a><span class="in">```{r e2e, eval = FALSE}</span></span>
-<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">two_stage_tmle_mediated</span>(</span>
-<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>  <span class="at">data          =</span> dat,</span>
-<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a>  <span class="at">ind_cov       =</span> <span class="fu">c</span>(<span class="st">"W1"</span>, <span class="st">"W2"</span>, <span class="st">"W3"</span>),</span>
-<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>  <span class="at">clust_cov     =</span> <span class="fu">c</span>(<span class="st">"E1"</span>, <span class="st">"E2"</span>),</span>
-<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>  <span class="at">sl_library    =</span> <span class="fu">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glm"</span>),</span>
-<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a>  <span class="at">goal          =</span> <span class="st">"RD"</span>, <span class="at">target =</span> <span class="st">"clust"</span>, <span class="at">break_match =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>  <span class="at">do_data_adapt =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_q_adj    =</span> cand<span class="sc">$</span>cand_q_adj, <span class="at">cand_q_form =</span> cand<span class="sc">$</span>cand_q_form,</span>
-<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_g_adj    =</span> cand<span class="sc">$</span>cand_g_adj, <span class="at">cand_g_form =</span> cand<span class="sc">$</span>cand_g_form,</span>
-<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_pscore =</span> <span class="cn">TRUE</span></span>
-<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>est        <span class="co"># Stage 2 estimate</span></span>
-<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>stage1     <span class="co"># cluster table with all four candidate endpoints</span></span>
-<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a><span class="fu">## A note on variance</span></span>
-<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a>Stage 2 computes its variance from the cluster-level influence curve and</span>
-<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a>treats the Stage 1 ratio as a *fixed observation at the cluster level*.</span>
-<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a>The Stage-1 contribution to variance is asymptotically negligible when</span>
-<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a>within-cluster sample sizes are large. Nakato (2026) verifies acceptable</span>
-<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a>coverage at $N_c \approx 200$ per cluster, $J \in <span class="sc">\{</span>20, 30, 50, 70<span class="sc">\}</span>$.</span>
-<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a>For inference also robust to the Adaptive Pre-specification selection,</span>
-<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a>pass <span class="in">`do_cv_variance = TRUE`</span> to <span class="in">`stage2_tmle()`</span> — the returned data.table</span>
-<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a>gets additional <span class="in">`cv_*`</span> columns with the CV CI and p-value.</span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>dat[, <span class="fu">c</span>(<span class="st">"UE1"</span>, <span class="st">"UE2"</span>, <span class="st">"Y1_star"</span>) <span class="sc">:</span><span class="er">=</span> <span class="cn">NULL</span>]</span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat[, .(id, A, W1, W2, W3, E1, E2, M, Y1, Y2)])</span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stage 1 — ratio endpoint per cluster</span></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a><span class="in">```{r stage1}</span></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">stage1_mediated</span>(</span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>  <span class="at">data       =</span> dat,</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>  <span class="at">ind_cov    =</span> <span class="fu">c</span>(<span class="st">"W1"</span>, <span class="st">"W2"</span>, <span class="st">"W3"</span>),</span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>  <span class="at">clust_cov  =</span> <span class="fu">c</span>(<span class="st">"E1"</span>, <span class="st">"E2"</span>),</span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>  <span class="at">sl_library =</span> <span class="fu">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glm"</span>)</span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>s1[, .(id, A, E1, E2, screened, eligible, unadj, tmle)]</span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>Each row is one cluster. The four candidate endpoints:</span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Column     <span class="pp">|</span> Estimand                              <span class="pp">|</span> Bias               <span class="pp">|</span></span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a><span class="pp">|------------|---------------------------------------|--------------------|</span></span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`screened`</span> <span class="pp">|</span> $\mathbb{P}(Y_2 \mid M = 1)$                  <span class="pp">|</span> Biased (conditions on a post-treatment mediator) <span class="pp">|</span></span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`eligible`</span> <span class="pp">|</span> $\mathbb{P}(Y_2 \mid Y_1 = 1)$                <span class="pp">|</span> Biased (conditions on observed-eligible) <span class="pp">|</span></span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`unadj`</span>    <span class="pp">|</span> $\mathbb{P}(Y_2) / \mathbb{P}(Y_1 \mid M = 1)$        <span class="pp">|</span> Unadjusted denominator <span class="pp">|</span></span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **`tmle`** | $\mathbb{P}(Y_2) / \mathrm{TMLE}[\mathbb{P}(Y_1 \mid M = 1, W)]$ | **Recommended endpoint** <span class="pp">|</span></span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>The first two exist so you can see how conditioning the wrong way shifts</span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>the estimate; <span class="in">`tmle`</span> is what gets fed to Stage 2.</span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stage 2 — cluster-level TMLE on the ratio endpoint</span></span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>Stage 2 is *unchanged* from <span class="co">[</span><span class="ot">Chapter 5</span><span class="co">](05_R_foundational.qmd)</span> — the</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>ratio endpoint slots into the same machinery:</span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a><span class="in">```{r stage2}</span></span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">copy</span>(s1)</span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>s2[, Y <span class="sc">:</span><span class="er">=</span> tmle]</span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">add_weights</span>(s2, <span class="at">target =</span> <span class="st">"clust"</span>)</span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>cand <span class="ot">&lt;-</span> <span class="fu">cand_adj</span>(<span class="fu">c</span>(<span class="st">"E1"</span>, <span class="st">"E2"</span>))</span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">stage2_tmle</span>(</span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>  <span class="at">data          =</span> s2,</span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>  <span class="at">goal          =</span> <span class="st">"RD"</span>,</span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a>  <span class="at">target        =</span> <span class="st">"clust"</span>,</span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>  <span class="at">break_match   =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>  <span class="at">do_data_adapt =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_q_adj    =</span> cand<span class="sc">$</span>cand_q_adj, <span class="at">cand_q_form =</span> cand<span class="sc">$</span>cand_q_form,</span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_g_adj    =</span> cand<span class="sc">$</span>cand_g_adj, <span class="at">cand_g_form =</span> cand<span class="sc">$</span>cand_g_form,</span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_pscore =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a>est[, .(est, ci_lo, ci_hi, se, pval, q_adj, g_adj)]</span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a><span class="fu">## End-to-end driver</span></span>
+<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a><span class="in">```{r e2e, eval = FALSE}</span></span>
+<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">two_stage_tmle_mediated</span>(</span>
+<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a>  <span class="at">data          =</span> dat,</span>
+<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>  <span class="at">ind_cov       =</span> <span class="fu">c</span>(<span class="st">"W1"</span>, <span class="st">"W2"</span>, <span class="st">"W3"</span>),</span>
+<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>  <span class="at">clust_cov     =</span> <span class="fu">c</span>(<span class="st">"E1"</span>, <span class="st">"E2"</span>),</span>
+<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>  <span class="at">sl_library    =</span> <span class="fu">c</span>(<span class="st">"SL.mean"</span>, <span class="st">"SL.glm"</span>),</span>
+<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>  <span class="at">goal          =</span> <span class="st">"RD"</span>, <span class="at">target =</span> <span class="st">"clust"</span>, <span class="at">break_match =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a>  <span class="at">do_data_adapt =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_q_adj    =</span> cand<span class="sc">$</span>cand_q_adj, <span class="at">cand_q_form =</span> cand<span class="sc">$</span>cand_q_form,</span>
+<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>  <span class="at">cand_g_adj    =</span> cand<span class="sc">$</span>cand_g_adj, <span class="at">cand_g_form =</span> cand<span class="sc">$</span>cand_g_form,</span>
+<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_pscore =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>est        <span class="co"># Stage 2 estimate</span></span>
+<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>stage1     <span class="co"># cluster table with all four candidate endpoints</span></span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a><span class="fu">## A note on variance</span></span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a>Stage 2 computes its variance from the cluster-level influence curve and</span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a>treats the Stage 1 ratio as a *fixed observation at the cluster level*.</span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a>The Stage-1 contribution to variance is asymptotically negligible when</span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a>within-cluster sample sizes are large. Nakato (2026) verifies acceptable</span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a>coverage at $N_c \approx 200$ per cluster, $J \in <span class="sc">\{</span>20, 30, 50, 70<span class="sc">\}</span>$.</span>
 <span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a><span class="fu">## Where to go next</span></span>
-<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The package vignette <span class="in">`vignette("mediated-missing")`</span> covers the same</span>
-<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a>  flow with additional commentary.</span>
-<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Chapter 7</span><span class="co">](11_info_conclusion.qmd)</span> closes with the next steps — Aim</span>
-<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a>  1B (effect heterogeneity), Aim 2 (SAPPHIRE &amp; Peer-led DCP secondary</span>
-<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a>  analyses), and the Roadmap Shiny app.</span>
-<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a><span class="fu">## Resources</span></span>
-<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a>**Reference cards**</span>
-<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`stage1_mediated()`</span> documentation: <span class="in">`?TwoStageTMLE::stage1_mediated`</span></span>
-<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`two_stage_tmle_mediated()`</span> documentation: <span class="in">`?TwoStageTMLE::two_stage_tmle_mediated`</span></span>
-<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nakato &amp; Balzer (2026) — manuscript <span class="co">[</span><span class="ot">@nakato2026mediated</span><span class="co">]</span>.</span>
-<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a>For inference also robust to the Adaptive Pre-specification selection,</span>
+<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a>pass <span class="in">`do_cv_variance = TRUE`</span> to <span class="in">`stage2_tmle()`</span> — the returned data.table</span>
+<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a>gets additional <span class="in">`cv_*`</span> columns with the CV CI and p-value.</span>
+<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a><span class="fu">## Where to go next</span></span>
+<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The package vignette <span class="in">`vignette("mediated-missing")`</span> covers the same</span>
+<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a>  flow with additional commentary.</span>
+<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Chapter 7</span><span class="co">](11_info_conclusion.qmd)</span> closes with the next steps — Aim</span>
+<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a>  1B (effect heterogeneity), Aim 2 (SAPPHIRE &amp; Peer-led DCP secondary</span>
+<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a>  analyses), and the Roadmap Shiny app.</span>
+<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a><span class="fu">## Resources</span></span>
+<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a>**Reference cards**</span>
+<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`stage1_mediated()`</span> documentation: <span class="in">`?TwoStageTMLE::stage1_mediated`</span></span>
+<span id="cb5-180"><a href="#cb5-180" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`two_stage_tmle_mediated()`</span> documentation: <span class="in">`?TwoStageTMLE::two_stage_tmle_mediated`</span></span>
+<span id="cb5-181"><a href="#cb5-181" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nakato &amp; Balzer (2026) — manuscript <span class="co">[</span><span class="ot">@nakato2026mediated</span><span class="co">]</span>.</span>
+<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

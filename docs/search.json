@@ -4,7 +4,7 @@
     "href": "03_info_challenges.html",
     "title": "3. Challenges in CRTs",
     "section": "",
-    "text": "Note\n\n\n\nDraft scaffold. Each subsection needs a figure (reuse Figs 2 and 5 from the strategy doc), a real-data anecdote from SEARCH / SEARCH-TB / SEARCH-IPT (Balzer et al. 2021), and a forward link to where this site fixes the problem.\nThis chapter names the three challenges that motivate the methodology developed in Chapters 4–6.",
+    "text": "Note\n\n\n\nDISCLAIMER: This page is under construction\nDraft scaffold. Each subsection needs a figure (reuse Figs 2 and 5 from the strategy doc), a real-data anecdote from SEARCH / SEARCH-TB / SEARCH-IPT (Balzer et al. 2021), and a forward link to where this site fixes the problem.\nThis chapter names the three challenges that motivate the methodology developed in Chapters 4–6.",
     "crumbs": [
       "Team",
       "Foundations",
@@ -64,7 +64,7 @@
     "href": "06_R_mediated.html",
     "title": "6. Hands-on: the multilevel-mediation-missing problem",
     "section": "",
-    "text": "This chapter walks through the mediated Stage 1 estimator (Nakato and Balzer 2026) on a simulated CRT where:\nThe cluster-level endpoint is the ratio:\n\\[\nY^c \\;=\\; \\frac{\\mathbb{P}(Y_2 = 1)}{\\mathbb{E}\\!\\bigl[\\mathbb{P}(Y_1 = 1 \\mid M = 1, W)\\bigr]}.\n\\]\nNumerator: empirical proportion uptaking. Denominator: TMLE for the prevalence of risk, fit within each cluster.",
+    "text": "Note\n\n\n\nDISCLAIMER: This page is under construction\nThis chapter walks through the mediated Stage 1 estimator (Nakato and Balzer 2026) on a simulated CRT where:\nThe cluster-level endpoint is the ratio:\n\\[\nY^c \\;=\\; \\frac{\\mathbb{P}(Y_2 = 1)}{\\mathbb{E}\\!\\bigl[\\mathbb{P}(Y_1 = 1 \\mid M = 1, W)\\bigr]}.\n\\]\nNumerator: empirical proportion uptaking. Denominator: TMLE for the prevalence of risk, fit within each cluster.",
     "crumbs": [
       "Team",
       "Two-Stage TMLE",
@@ -160,7 +160,7 @@
     "href": "05_R_foundational.html",
     "title": "5. Hands-on: missing outcomes",
     "section": "",
-    "text": "Tip\n\n\n\nLive R in the browser. This site uses webR. Chunks marked {webr-r} are editable — change the code, click Run, see the new output. No R install needed. (The cells that call TwoStageTMLE directly still render server-side until the package ships a WebAssembly binary; see the README’s roadmap.)\nThis chapter walks through the foundational Two-Stage TMLE pipeline (Balzer et al. 2021) on a simulated CRT with missing outcomes. We:",
+    "text": "Note\n\n\n\nDISCLAIMER: This page is under construction\nThis chapter walks through the foundational Two-Stage TMLE pipeline (Balzer et al. 2021) on a simulated CRT with missing outcomes. We:",
     "crumbs": [
       "Team",
       "Two-Stage TMLE",
@@ -311,7 +311,7 @@
     "href": "04_info_two_stage_tmle.html",
     "title": "4. The Two-Stage TMLE method",
     "section": "",
-    "text": "Note\n\n\n\nDraft scaffold. Need: full derivation following §9.3 of the strategy doc + Box 1 / Box 2; redraw Figure 5 inline; add a short video that walks through Stage 1 then Stage 2.",
+    "text": "Note\n\n\n\nDISCLAIMER: This page is under construction\nDraft scaffold. Need: full derivation following §9.3 of the strategy doc + Box 1 / Box 2; redraw Figure 5 inline; add a short video that walks through Stage 1 then Stage 2.",
     "crumbs": [
       "Team",
       "Two-Stage TMLE",
@@ -407,7 +407,7 @@
     "href": "00_instructors.html",
     "title": "Team",
     "section": "",
-    "text": "Note\n\n\n\nDraft scaffold. Replace placeholder bios with photos + 2-3 sentence descriptions sourced from team CVs."
+    "text": "Note\n\n\n\nDISCLAIMER: This page is under construction\nDraft scaffold. Replace placeholder bios with photos + 2-3 sentence descriptions sourced from team CVs."
   },
   {
     "objectID": "00_instructors.html#investigators",
@@ -442,7 +442,7 @@
     "href": "01_info_why_crts.html",
     "title": "1. Why CRTs?",
     "section": "",
-    "text": "Note\n\n\n\nDraft scaffold. Body needs: (1) ~3 paragraphs framing CRTs vs individually-randomized trials, (2) the HIV prevention motivation (Balzer et al. 2021), (3) brief stats — 700+ active NIH CRTs, 80+ HIV-prevention CRTs, (4) embedded short video (~2 min) from the SAB on why this matters, (5) a “further reading” Resources panel matching the NIH Collaboratory Living Textbook look.",
+    "text": "Note\n\n\n\nDISCLAIMER: This page is under construction\nDraft scaffold. Body needs: (1) ~3 paragraphs framing CRTs vs individually-randomized trials, (2) the HIV prevention motivation (Balzer et al. 2021), (3) brief stats — 700+ active NIH CRTs, 80+ HIV-prevention CRTs, (4) embedded short video (~2 min) from the SAB on why this matters, (5) a “further reading” Resources panel matching the NIH Collaboratory Living Textbook look.",
     "crumbs": [
       "Team",
       "Foundations",
@@ -502,7 +502,7 @@
     "href": "02_info_roadmap.html",
     "title": "2. The Causal Roadmap for CRTs",
     "section": "",
-    "text": "Note\n\n\n\nDraft scaffold. Each Roadmap step below has a one-line placeholder. Year 1 deliverable: fill in steps 1–6 with the SAPPHIRE running example, mirroring Table 6 of the strategy doc. Year 2: embed the Shiny “Roadmap walker” as an iframe at the bottom of this page.",
+    "text": "Note\n\n\n\nDISCLAIMER: This page is under construction\nDraft scaffold. Each Roadmap step below has a one-line placeholder. Year 1 deliverable: fill in steps 1–6 with the SAPPHIRE running example, mirroring Table 6 of the strategy doc. Year 2: embed the Shiny “Roadmap walker” as an iframe at the bottom of this page.",
     "crumbs": [
       "Team",
       "Foundations",
@@ -550,7 +550,7 @@
     "href": "11_info_conclusion.html",
     "title": "7. Final remarks",
     "section": "",
-    "text": "Note\n\n\n\nDraft scaffold. Final paragraph should pull together the three R01 aims into a coherent dissemination message. Add a “what’s next” call to action and the support-email alias once one exists.",
+    "text": "Note\n\n\n\nDISCLAIMER: This page is under construction\nDraft scaffold. Final paragraph should pull together the three R01 aims into a coherent dissemination message. Add a “what’s next” call to action and the support-email alias once one exists.",
     "crumbs": [
       "Team",
       "7. Final remarks"
