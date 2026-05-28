@@ -20,6 +20,10 @@ cat("::: {.callout-warning}\n",
     ":::\n", sep = "")
 ```
 
+::: {.callout-note .draft}
+**DISCLAIMER: This page is under construction**  
+:::
+
 ::: {.callout-tip}
 **Live R in the browser.** This site uses [webR](https://docs.r-wasm.org/webr/).
 Chunks marked `{webr-r}` are editable — change the code, click *Run*, see the

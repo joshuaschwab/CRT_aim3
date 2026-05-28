@@ -18,6 +18,10 @@ cat("::: {.callout-warning}\n",
     ":::\n", sep = "")
 ```
 
+::: {.callout-note .draft}
+**DISCLAIMER: This page is under construction**  
+:::
+
 This chapter walks through the **mediated** Stage 1 estimator
 [@nakato2026mediated] on a simulated CRT where:
 

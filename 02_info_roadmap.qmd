@@ -4,6 +4,7 @@ date-modified: last-modified
 ---
 
 ::: {.callout-note .draft}
+**DISCLAIMER: This page is under construction**  
 **Draft scaffold.** Each Roadmap step below has a one-line placeholder.
 Year 1 deliverable: fill in steps 1–6 with the SAPPHIRE running example,
 mirroring **Table 6** of the strategy doc. Year 2: embed the Shiny

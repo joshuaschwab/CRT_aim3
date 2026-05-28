@@ -4,6 +4,7 @@ date-modified: last-modified
 ---
 
 ::: {.callout-note .draft}
+**DISCLAIMER: This page is under construction**  
 **Draft scaffold.** Need: full derivation following §9.3 of the strategy
 doc + Box 1 / Box 2; redraw Figure 5 inline; add a short video that
 walks through Stage 1 then Stage 2.

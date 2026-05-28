@@ -4,6 +4,7 @@ date-modified: last-modified
 ---
 
 ::: {.callout-note .draft}
+**DISCLAIMER: This page is under construction**  
 **Draft scaffold.** Each subsection needs a figure (reuse Figs 2 and 5
 from the strategy doc), a real-data anecdote from SEARCH / SEARCH-TB /
 SEARCH-IPT [@balzer2021twostage], and a forward link to where this

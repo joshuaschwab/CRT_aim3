@@ -4,6 +4,7 @@ date-modified: last-modified
 ---
 
 ::: {.callout-note .draft}
+**DISCLAIMER: This page is under construction**  
 **Draft scaffold.** Replace placeholder bios with photos + 2-3 sentence
 descriptions sourced from team CVs.
 :::
