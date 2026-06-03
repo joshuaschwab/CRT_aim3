@@ -24,9 +24,9 @@ Professor of Biostatistics, University of California, Berkeley. Inventor
 of TMLE, Super Learner, and several multiple-testing procedures; author
 of *Targeted Learning* (Springer, 2011).
 
-### Joshua Schwab — Statistical programmer
+### Joshua Schwab — Programmer
 
-Maintainer of the `TwoStageTMLE` R package.
+Research Programmer, University of California, Berkeley. Maintainer of the `TwoStageTMLE` R package. 
 
 ## Scientific Advisory Board
 
